@@ -1,7 +1,7 @@
 package sk.ukf.Zaverecna_praca;
 
 public enum StateOfConference {
-    PREPARING("prepearing"),
+    PREPARING("preparing"),
     REGISTERING("registering"),
     REGISTERING_ENDED("registering_ended"),
     ENDED("ended");

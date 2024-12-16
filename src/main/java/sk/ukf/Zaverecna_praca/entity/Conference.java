@@ -27,7 +27,6 @@ public class Conference {
     private String nameOfConference;
 
     @Column(name = "date_of_conference")
-    @NotNull(message = "Conference date is required")
     private LocalDate dateOfConference;
 
     @Enumerated(EnumType.STRING)
@@ -150,5 +149,24 @@ public class Conference {
 
     public void setSponsorsHasConferences(Set<SponsorsHasConferences> sponsorsHasConferences) {
         this.sponsorsHasConferences = sponsorsHasConferences;
+    }
+
+    public Conference() {
+    }
+
+    public Conference(String nameOfConference, LocalDate dateOfConference, String comment) {
+        this.nameOfConference = nameOfConference;
+        this.dateOfConference = dateOfConference;
+        this.comment = comment;
+    }
+
+    public Conference(Long id, String nameOfConference, LocalDate dateOfConference, StateOfConference stateOfConference, String comment, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.nameOfConference = nameOfConference;
+        this.dateOfConference = dateOfConference;
+        this.stateOfConference = stateOfConference;
+        this.comment = comment;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 }
