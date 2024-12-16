@@ -18,25 +18,23 @@ public class Presentation {
     private Long id;
 
     @Column(name = "name_of_presentation", nullable = false, length = 255,
-            columnDefinition = "VARCHAR(255) COLLATE utf16_slovak_ci")
+            columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
     @NotBlank(message = "Presentation name must not be empty")
     @Size(max = 255, message = "Presentation name must not exceed 255 characters")
     private String nameOfPresentation;
 
     @Column(name = "start_at")
-    @NotNull(message = "Start time is required")
     private LocalTime startAt;
 
     @Column(name = "end_at")
-    @NotNull(message = "End time is required")
     private LocalTime endAt;
 
     @Column(name = "short_description", length = 255,
-            columnDefinition = "VARCHAR(255) COLLATE utf16_slovak_ci")
+            columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
     @Size(max = 255, message = "Short description must not exceed 255 characters")
     private String shortDescription;
 
-    @Column(name = "long_description", columnDefinition = "TEXT COLLATE utf16_slovak_ci")
+    @Column(name = "long_description", columnDefinition = "TEXT COLLATE utf8mb4_slovak_ci")
     @Size(max = 65500, message = "Long description must not exceed 65500 characters")
     private String longDescription;
 
@@ -49,11 +47,17 @@ public class Presentation {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "stage_id", nullable = false, referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "fk_presentations_stages"))
+            foreignKey = @ForeignKey(name = "fk_presentations_stages",
+            foreignKeyDefinition = "FOREIGN KEY (stage_id) REFERENCES presentations(id) ON DELETE CASCADE ON UPDATE CASCADE"))
+
     @NotNull(message = "Stage must be specified")
     private Stage stage;
+
+    @Column(name = "comment", columnDefinition = "TEXT COLLATE utf8mb4_slovak_ci")
+    @Size(max = 65500, message = "Comment must not exceed 65500 characters")
+    private String comment;
 
     // Lifecycle hooks for automatic timestamp updates
     @PrePersist

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 16, 2024 at 01:15 AM
+-- Generation Time: Dec 16, 2024 at 09:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,7 +29,6 @@ USE `JAVA_Zaverecna_praca`;
 -- Table structure for table `conferences`
 --
 
-DROP TABLE IF EXISTS `conferences`;
 CREATE TABLE `conferences` (
   `id` int(11) NOT NULL,
   `name_of_conference` tinytext NOT NULL,
@@ -46,7 +45,6 @@ CREATE TABLE `conferences` (
 -- Table structure for table `notes`
 --
 
-DROP TABLE IF EXISTS `notes`;
 CREATE TABLE `notes` (
   `id` int(11) NOT NULL,
   `note` text DEFAULT NULL,
@@ -61,7 +59,6 @@ CREATE TABLE `notes` (
 -- Table structure for table `presentations`
 --
 
-DROP TABLE IF EXISTS `presentations`;
 CREATE TABLE `presentations` (
   `id` int(11) NOT NULL,
   `name_of_presentation` tinytext NOT NULL,
@@ -81,11 +78,10 @@ CREATE TABLE `presentations` (
 -- Table structure for table `presentations_has_participants`
 --
 
-DROP TABLE IF EXISTS `presentations_has_participants`;
 CREATE TABLE `presentations_has_participants` (
   `id` int(11) NOT NULL,
-  `presentation_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `presentation_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `deleted_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `was_deleted` tinyint(4) NOT NULL DEFAULT 0
@@ -97,11 +93,10 @@ CREATE TABLE `presentations_has_participants` (
 -- Table structure for table `presentations_has_speakers`
 --
 
-DROP TABLE IF EXISTS `presentations_has_speakers`;
 CREATE TABLE `presentations_has_speakers` (
   `id` int(11) NOT NULL,
-  `presentation_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
+  `presentation_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_slovak_ci;
@@ -112,7 +107,6 @@ CREATE TABLE `presentations_has_speakers` (
 -- Table structure for table `sponsors`
 --
 
-DROP TABLE IF EXISTS `sponsors`;
 CREATE TABLE `sponsors` (
   `id` int(11) NOT NULL,
   `name_of_sponsor` tinytext NOT NULL,
@@ -129,7 +123,6 @@ CREATE TABLE `sponsors` (
 -- Table structure for table `sponsors_has_conferences`
 --
 
-DROP TABLE IF EXISTS `sponsors_has_conferences`;
 CREATE TABLE `sponsors_has_conferences` (
   `id` int(11) NOT NULL,
   `sponsors_id` int(11) NOT NULL,
@@ -144,7 +137,6 @@ CREATE TABLE `sponsors_has_conferences` (
 -- Table structure for table `stages`
 --
 
-DROP TABLE IF EXISTS `stages`;
 CREATE TABLE `stages` (
   `id` int(11) NOT NULL,
   `name_of_stage` tinytext NOT NULL,
@@ -160,7 +152,6 @@ CREATE TABLE `stages` (
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `email` tinytext NOT NULL,
@@ -323,15 +314,15 @@ ALTER TABLE `presentations`
 -- Constraints for table `presentations_has_participants`
 --
 ALTER TABLE `presentations_has_participants`
-  ADD CONSTRAINT `fk_presentations_has_participants_presentations` FOREIGN KEY (`presentation_id`) REFERENCES `presentations` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_presentations_has_participants_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_presentations_has_participants_presentations` FOREIGN KEY (`presentation_id`) REFERENCES `presentations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_presentations_has_participants_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `presentations_has_speakers`
 --
 ALTER TABLE `presentations_has_speakers`
-  ADD CONSTRAINT `fk_presentations_has_speakers_presentations` FOREIGN KEY (`presentation_id`) REFERENCES `presentations` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_presentations_has_speakers_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_presentations_has_speakers_presentations` FOREIGN KEY (`presentation_id`) REFERENCES `presentations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_presentations_has_speakers_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sponsors_has_conferences`

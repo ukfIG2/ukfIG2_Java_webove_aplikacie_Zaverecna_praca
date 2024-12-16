@@ -5,10 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import sk.ukf.Zaverecna_praca.Role;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "users", schema = "JAVA_Zaverecna_praca",
@@ -20,33 +19,38 @@ public class User {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "title_before_name", length = 255)
-    @Size(max = 255, message = "Title before name must not exceed 255 characters")
-    private String titleBeforeName;
-
-
-    @Column(name = "first_name", nullable = false, length = 255)
-    @NotBlank(message = "First name must not be empty")
-    @Size(max = 255, message = "First name must not exceed 100 characters")
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false, length = 100)
-    @NotBlank(message = "Last name must not be empty")
-    @Size(max = 100, message = "Last name must not exceed 100 characters")
-    private String lastName;
-
-    @Column(name = "email", nullable = false, unique = true, length = 255)
+    @Column(name = "email", nullable = false, unique = true, length = 255,
+            columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
     @NotBlank(message = "Email must not be empty")
     @Email(message = "Email must be valid")
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Email must be in the correct format. ***@**.**")
     @Size(max = 255, message = "Email must not exceed 255 characters")
     private String email;
 
-    @Column(name = "title_after_name", length = 255)
+    @Column(name = "title_before_name", length = 255,
+            columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
+    @Size(max = 255, message = "Title before name must not exceed 255 characters")
+    private String titleBeforeName;
+
+    @Column(name = "first_name", nullable = false, length = 255,
+            columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
+    @NotBlank(message = "First name must not be empty")
+    @Size(max = 255, message = "First name must not exceed 255 characters")
+    private String firstName;
+
+    @Column(name = "last_name", nullable = false, length = 255,
+            columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
+    @NotBlank(message = "Last name must not be empty")
+    @Size(max = 255, message = "Last name must not exceed 255 characters")
+    private String lastName;
+
+    @Column(name = "title_after_name", length = 255,
+            columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
     @Size(max = 255, message = "Title after name must not exceed 255 characters")
     private String titleAfterName;
 
-    @Column(name = "password", nullable = false, length = 60, columnDefinition = "VARCHAR(60)")
+    @Column(name = "password", nullable = false, length = 255,
+            columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
     @NotBlank(message = "Password must not be empty")
     @Size(min = 8, max = 255, message = "Password must be between 8 and 255 characters long")
     @Pattern(
@@ -55,26 +59,31 @@ public class User {
     )
     private String password;
 
-    @Column(name = "role", nullable = false)
-    @NotBlank(message = "Role must not be empty")
-    private String role = "ROLE_REGISTERED_VISITOR"; // Default role
+    @Column(name = "phone_number", length = 30,
+            columnDefinition = "VARCHAR(30) COLLATE utf8mb4_slovak_ci")
+    @Size(max = 30, message = "Phone number must not exceed 30 characters")
+    private String phoneNumber;
+
+    @Column(name = "photo", length = 255,
+            columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
+    @Size(max = 255, message = "Photo must not exceed 255 characters")
+    private String photo;
+
+    @Column(name = "comment", columnDefinition = "TEXT COLLATE utf8mb4_slovak_ci")
+    @Size(max = 65500, message = "Comment must not exceed 65500 characters")
+    private String comment;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-    // Relationships
-    @ManyToMany
-    @JoinTable(
-            name = "user_conferences",
-            schema = "JAVA_Zaverecna_praca",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id",
-                    foreignKey = @ForeignKey(name = "fk_user_conferences_user")),
-            inverseJoinColumns = @JoinColumn(name = "conference_id", referencedColumnName = "id",
-                    foreignKey = @ForeignKey(name = "fk_user_conferences_conference"))
-    )
-    private Set<Conference> conferences = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false,
+            columnDefinition = "ENUM('ROLE_admin', 'ROLE_registered_visitor', 'ROLE_speaker')")
+    @NotBlank(message = "Role must not be empty")
+    private Role role = Role.REGISTERED_VISITOR; // Default role
 
     // Lifecycle hooks for automatic timestamp updates
     @PrePersist
@@ -98,6 +107,22 @@ public class User {
         this.id = id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTitleBeforeName() {
+        return titleBeforeName;
+    }
+
+    public void setTitleBeforeName(String titleBeforeName) {
+        this.titleBeforeName = titleBeforeName;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -114,12 +139,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getTitleAfterName() {
+        return titleAfterName;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setTitleAfterName(String titleAfterName) {
+        this.titleAfterName = titleAfterName;
     }
 
     public String getPassword() {
@@ -130,12 +155,28 @@ public class User {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -154,11 +195,11 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public Set<Conference> getConferences() {
-        return conferences;
+    public Role getRole() {
+        return role;
     }
 
-    public void setConferences(Set<Conference> conferences) {
-        this.conferences = conferences;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

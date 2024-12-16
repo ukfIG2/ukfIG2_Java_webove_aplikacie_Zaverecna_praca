@@ -20,7 +20,7 @@ public class Conference {
     private Long id;
 
     @Column(name = "name_of_conference", nullable = false, length = 255,
-            columnDefinition = "VARCHAR(255) COLLATE utf16_slovak_ci")
+            columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
     @NotBlank(message = "Conference name must not be empty")
     @Size(max = 255, message = "Conference name must not exceed 255 characters")
     private String nameOfConference;
@@ -37,7 +37,7 @@ public class Conference {
     @NotNull(message = "State of the conference is required")
     private StateOfConference stateOfConference = StateOfConference.PREPARING;
 
-    @Column(name = "comment", columnDefinition = "TEXT COLLATE utf16_slovak_ci")
+    @Column(name = "comment", columnDefinition = "TEXT COLLATE utf8mb4_slovak_ci")
     @Size(max = 65500, message = "Comment must not exceed 65500 characters")
     private String comment;
 
@@ -46,11 +46,11 @@ public class Conference {
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
+/*
     // Relationship with stages
     @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stage> stages;
-
+*/
     // Lifecycle hooks for automatic timestamp updates
     @PrePersist
     protected void onCreate() {
@@ -120,8 +120,8 @@ public class Conference {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
+/*
     public List<Stage> getStages() {
         return stages;
-    }
+    }*/
 }
