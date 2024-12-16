@@ -9,6 +9,7 @@ import sk.ukf.Zaverecna_praca.StateOfConference;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "conferences", schema = "JAVA_Zaverecna_praca")
@@ -27,8 +28,6 @@ public class Conference {
 
     @Column(name = "date_of_conference")
     @NotNull(message = "Conference date is required")
-    //@DateTimeFormat(pattern = "yyyy-MM-dd")
-    //@JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfConference;
 
     @Enumerated(EnumType.STRING)
@@ -46,11 +45,19 @@ public class Conference {
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-/*
+
     // Relationship with stages
-    @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "conference", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Stage> stages;
-*/
+
+    // Relationship with notes
+    @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL)
+    private List<Notes> notes;
+
+    // Relationship with sponsors
+    @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SponsorsHasConferences> sponsorsHasConferences;
+
     // Lifecycle hooks for automatic timestamp updates
     @PrePersist
     protected void onCreate() {
@@ -120,8 +127,28 @@ public class Conference {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-/*
+
     public List<Stage> getStages() {
         return stages;
-    }*/
+    }
+
+    public void setStages(List<Stage> stages) {
+        this.stages = stages;
+    }
+
+    public List<Notes> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(List<Notes> notes) {
+        this.notes = notes;
+    }
+
+    public Set<SponsorsHasConferences> getSponsorsHasConferences() {
+        return sponsorsHasConferences;
+    }
+
+    public void setSponsorsHasConferences(Set<SponsorsHasConferences> sponsorsHasConferences) {
+        this.sponsorsHasConferences = sponsorsHasConferences;
+    }
 }

@@ -8,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import sk.ukf.Zaverecna_praca.Role;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "users", schema = "JAVA_Zaverecna_praca",
@@ -84,6 +85,12 @@ public class User {
             columnDefinition = "ENUM('ROLE_admin', 'ROLE_registered_visitor', 'ROLE_speaker')")
     @NotBlank(message = "Role must not be empty")
     private Role role = Role.REGISTERED_VISITOR; // Default role
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PresentationsHasParticipants> presentationsHasParticipants;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PresentationsHasSpeakers> presentationsHasSpeakers;
 
     // Lifecycle hooks for automatic timestamp updates
     @PrePersist
@@ -201,5 +208,21 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Set<PresentationsHasParticipants> getPresentationsHasParticipants() {
+        return presentationsHasParticipants;
+    }
+
+    public void setPresentationsHasParticipants(Set<PresentationsHasParticipants> presentationsHasParticipants) {
+        this.presentationsHasParticipants = presentationsHasParticipants;
+    }
+
+    public Set<PresentationsHasSpeakers> getPresentationsHasSpeakers() {
+        return presentationsHasSpeakers;
+    }
+
+    public void setPresentationsHasSpeakers(Set<PresentationsHasSpeakers> presentationsHasSpeakers) {
+        this.presentationsHasSpeakers = presentationsHasSpeakers;
     }
 }

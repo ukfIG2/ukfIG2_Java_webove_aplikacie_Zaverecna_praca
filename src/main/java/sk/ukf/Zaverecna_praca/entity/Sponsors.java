@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "sponsors", schema = "JAVA_Zaverecna_praca")
@@ -42,6 +43,10 @@ public class Sponsors {
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    // Relationship with conferences
+    @OneToMany(mappedBy = "sponsor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SponsorsHasConferences> sponsorsHasConferences;
 
     // Lifecycle hooks for automatic timestamp updates
     @PrePersist
@@ -111,5 +116,13 @@ public class Sponsors {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<SponsorsHasConferences> getSponsorsHasConferences() {
+        return sponsorsHasConferences;
+    }
+
+    public void setSponsorsHasConferences(Set<SponsorsHasConferences> sponsorsHasConferences) {
+        this.sponsorsHasConferences = sponsorsHasConferences;
     }
 }

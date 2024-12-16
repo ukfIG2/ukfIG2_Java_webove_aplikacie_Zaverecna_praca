@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "presentations", schema = "JAVA_Zaverecna_praca")
@@ -47,13 +48,18 @@ public class Presentation {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "stage_id", nullable = false, referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_presentations_stages",
-            foreignKeyDefinition = "FOREIGN KEY (stage_id) REFERENCES presentations(id) ON DELETE CASCADE ON UPDATE CASCADE"))
-
+                    foreignKeyDefinition = "FOREIGN KEY (stage_id) REFERENCES stages(id) ON DELETE CASCADE ON UPDATE CASCADE"))
     @NotNull(message = "Stage must be specified")
     private Stage stage;
+
+    @OneToMany(mappedBy = "presentation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PresentationsHasParticipants> participants;
+
+    @OneToMany(mappedBy = "presentation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<PresentationsHasSpeakers> speakers;
 
     @Column(name = "comment", columnDefinition = "TEXT COLLATE utf8mb4_slovak_ci")
     @Size(max = 65500, message = "Comment must not exceed 65500 characters")
@@ -71,7 +77,7 @@ public class Presentation {
         updatedAt = LocalDateTime.now();
     }
 
-//////////////////////////Getters and Setters////////////////
+    //////////////////////////Getters and Setters////////////////
 
     public Long getId() {
         return id;
@@ -151,5 +157,29 @@ public class Presentation {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public Set<PresentationsHasParticipants> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(Set<PresentationsHasParticipants> participants) {
+        this.participants = participants;
+    }
+
+    public Set<PresentationsHasSpeakers> getSpeakers() {
+        return speakers;
+    }
+
+    public void setSpeakers(Set<PresentationsHasSpeakers> speakers) {
+        this.speakers = speakers;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 }

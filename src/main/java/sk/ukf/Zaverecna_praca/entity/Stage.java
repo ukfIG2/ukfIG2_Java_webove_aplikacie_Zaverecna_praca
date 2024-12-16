@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "stages", schema = "JAVA_Zaverecna_praca")
@@ -32,13 +33,16 @@ public class Stage {
     @NotNull(message = "Conference must be specified")
     private Conference conference;
 
+    @OneToMany(mappedBy = "stage", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Presentation> presentations;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    //Lifecycle hooks for automatic timestamp updates
+    // Lifecycle hooks for automatic timestamp updates
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
@@ -84,6 +88,14 @@ public class Stage {
         this.conference = conference;
     }
 
+    public List<Presentation> getPresentations() {
+        return presentations;
+    }
+
+    public void setPresentations(List<Presentation> presentations) {
+        this.presentations = presentations;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -99,5 +111,4 @@ public class Stage {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
 }
