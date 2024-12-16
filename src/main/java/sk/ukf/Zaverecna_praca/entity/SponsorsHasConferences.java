@@ -24,6 +24,16 @@ public class SponsorsHasConferences {
                     foreignKeyDefinition = "FOREIGN KEY (conferences_id) REFERENCES conferences(id) ON DELETE CASCADE ON UPDATE CASCADE"))
     private Conference conference;
 
+    /*
+    @ManyToMany
+    @JoinTable(
+        name = "sponsors_has_conferences",
+        joinColumns = @JoinColumn(name = "conference_id"),
+        inverseJoinColumns = @JoinColumn(name = "sponsor_id")
+    )
+    private Set<Sponsor> sponsors;
+    */
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 

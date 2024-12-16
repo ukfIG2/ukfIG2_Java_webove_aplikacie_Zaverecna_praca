@@ -27,22 +27,19 @@ public class PresentationsHasParticipants {
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "deleted_at", nullable = false)
-    private LocalDateTime deletedAt;
-
-    @Column(name = "was_deleted", nullable = false)
-    private boolean wasDeleted = false;
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     // Lifecycle hooks for automatic timestamp updates
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
-        deletedAt = createdAt;
+        updatedAt = createdAt;
     }
 
     @PreUpdate
     protected void onUpdate() {
-        deletedAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
     }
 
     ////////////////////////// Getters and Setters //////////////////////////
@@ -79,19 +76,11 @@ public class PresentationsHasParticipants {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getDeletedAt() {
-        return deletedAt;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setDeletedAt(LocalDateTime deletedAt) {
-        this.deletedAt = deletedAt;
-    }
-
-    public boolean isWasDeleted() {
-        return wasDeleted;
-    }
-
-    public void setWasDeleted(boolean wasDeleted) {
-        this.wasDeleted = wasDeleted;
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
