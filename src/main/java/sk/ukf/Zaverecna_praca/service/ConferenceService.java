@@ -16,7 +16,7 @@ public class ConferenceService {
     @Autowired
     private ConferenceRepository conferenceRepository;
 
-    public List<ConferenceDTO> findAll() {
+    /*public List<ConferenceDTO> findAll() {
         return conferenceRepository.findAll().stream()
                 .map(Conference -> new ConferenceDTO(
                         Conference.getId(),
@@ -28,6 +28,9 @@ public class ConferenceService {
                         Conference.getUpdatedAt()
                 ))
                 .collect(Collectors.toList());
+    }*/
+    public List<Conference> findAll() {
+        return conferenceRepository.findAll();
     }
 
 public Optional<ConferenceDTO> findById(Long id) {

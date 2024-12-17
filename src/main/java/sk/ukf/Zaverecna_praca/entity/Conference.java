@@ -1,5 +1,6 @@
 package sk.ukf.Zaverecna_praca.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -47,14 +48,17 @@ public class Conference {
 
     // Relationship with stages
     @OneToMany(mappedBy = "conference", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Stage> stages;
 
     // Relationship with notes
     @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Notes> notes;
 
     // Relationship with sponsors
     @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private Set<SponsorsHasConferences> sponsorsHasConferences;
 
     // Lifecycle hooks for automatic timestamp updates

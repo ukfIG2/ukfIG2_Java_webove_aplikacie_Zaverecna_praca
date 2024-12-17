@@ -1,5 +1,8 @@
 package sk.ukf.Zaverecna_praca.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -83,5 +86,10 @@ public class Notes {
 
     public void setConference(Conference conference) {
         this.conference = conference;
+    }
+
+    @JsonProperty("conferenceId")
+    public Long getConferenceId() {
+        return (conference != null) ? conference.getId() : null;
     }
 }

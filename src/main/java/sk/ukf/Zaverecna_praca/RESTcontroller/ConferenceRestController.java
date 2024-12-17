@@ -20,7 +20,11 @@ public class ConferenceRestController {
 
     // Get all conferences as DTOs
     @GetMapping
-    public List<ConferenceDTO> getAllConferences() {
+    /*public List<ConferenceDTO> getAllConferences() {
+        return conferenceService.findAll();
+    }*/
+    public List<Conference> getAllConferences()
+    {
         return conferenceService.findAll();
     }
 
