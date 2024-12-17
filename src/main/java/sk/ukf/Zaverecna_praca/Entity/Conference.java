@@ -57,8 +57,9 @@ public class Conference {
     private Set<Note> notes;
 
     // Relationship with sponsors
-    //@OneToMany(mappedBy = "conference", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private Set<SponsorsHasConferences> sponsorsHasConferences;
+    @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<SponsorHasConference> sponsorHasConference;
 
     // Lifecycle hooks for automatic timestamp updates
     @PrePersist
@@ -145,14 +146,14 @@ public class Conference {
     public void setNotes(Set<Note> notes) {
         this.notes = notes;
     }
-/*
-    public Set<SponsorsHasConferences> getSponsorsHasConferences() {
-        return sponsorsHasConferences;
+
+    public Set<SponsorHasConference> getSponsorHasConference() {
+        return sponsorHasConference;
     }
 
-    public void setSponsorsHasConferences(Set<SponsorsHasConferences> sponsorsHasConferences) {
-        this.sponsorsHasConferences = sponsorsHasConferences;
-    }*/
+    public void setSponsorHasConference(Set<SponsorHasConference> sponsorsHasConferences) {
+        this.sponsorHasConference = sponsorsHasConferences;
+    }
 
 
 }
