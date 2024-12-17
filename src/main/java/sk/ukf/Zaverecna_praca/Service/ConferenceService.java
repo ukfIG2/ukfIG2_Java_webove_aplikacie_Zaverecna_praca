@@ -6,6 +6,7 @@ import sk.ukf.Zaverecna_praca.Entity.Conference;
 import sk.ukf.Zaverecna_praca.Repository.ConferenceRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ConferenceService {
@@ -16,4 +17,24 @@ public class ConferenceService {
     public List<Conference> findAll(){
         return conferenceRepository.findAll();
     }
+
+    public Optional<Conference> findById(Long id) {
+        return conferenceRepository.findById(id);
+    }
+
+    //make function for inserting
+    public void save(Conference conference) {
+        conferenceRepository.save(conference);
+    }
+
+    //make function for updating
+    public void update(Conference conference) {
+        conferenceRepository.save(conference);
+    }
+
+    //make function for deleting
+    public void deleteById(Long id) {
+        conferenceRepository.deleteById(id);
+    }
+
 }
