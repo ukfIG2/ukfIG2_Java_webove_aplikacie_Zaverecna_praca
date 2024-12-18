@@ -1,5 +1,6 @@
 package sk.ukf.Zaverecna_praca.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -21,14 +22,15 @@ public class SponsorHasConference {
             foreignKey = @ForeignKey(name = "fk_sponsors_has_conferences_sponsors",
                     foreignKeyDefinition = "FOREIGN KEY (sponsors_id) REFERENCES sponsors(id) ON DELETE CASCADE ON UPDATE CASCADE"))
     //@JsonManagedReference
-    @JsonIgnore
+    //@JsonIgnore
+    @JsonBackReference // Tells Jackson this is the "back" part of the relationship
     private Sponsor sponsor;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "conferences_id", nullable = false, referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_sponsors_has_conferences_conferences",
                     foreignKeyDefinition = "FOREIGN KEY (conferences_id) REFERENCES conferences(id) ON DELETE CASCADE ON UPDATE CASCADE"))
-    @JsonManagedReference
+    //@JsonManagedReference//
     //@JsonIgnore
     private Conference conference;
 

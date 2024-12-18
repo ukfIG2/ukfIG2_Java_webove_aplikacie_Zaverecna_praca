@@ -7,6 +7,7 @@ import sk.ukf.Zaverecna_praca.Repository.ConferenceRepository;
 import sk.ukf.Zaverecna_praca.Repository.SponsorRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SponsorService {
@@ -16,5 +17,17 @@ public class SponsorService {
 
     public List<Sponsor> findAll(){
         return sponsorRepository.findAll();
+    }
+
+    public Optional<Sponsor> findById(Long id){
+        return sponsorRepository.findById(id);
+    }
+
+    public void save(Sponsor sponsor){
+        sponsorRepository.save(sponsor);
+    }
+
+    public void deleteById(Long id){
+        sponsorRepository.deleteById(id);
     }
 }

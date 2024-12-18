@@ -47,7 +47,7 @@ public class Sponsor {
 
     // Relationship with conferences
     @OneToMany(mappedBy = "sponsor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    //@JsonManagedReference("sponsor-conferences")
+    @JsonManagedReference // Tells Jackson this is the "forward" part of the relationship
     private Set<SponsorHasConference> sponsorHasConference;
 
     // Lifecycle hooks for automatic timestamp updates
