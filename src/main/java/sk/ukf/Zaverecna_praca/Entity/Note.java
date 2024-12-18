@@ -32,7 +32,7 @@ public class Note {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "conference_id", nullable = false, referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_notes_conferences",
                     foreignKeyDefinition = "FOREIGN KEY (conference_id) REFERENCES conferences(id) ON DELETE SET NULL ON UPDATE CASCADE"))

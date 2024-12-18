@@ -27,11 +27,6 @@ public class ConferenceService {
         conferenceRepository.save(conference);
     }
 
-    //make function for updating
-    public void update(Conference conference) {
-        conferenceRepository.save(conference);
-    }
-
     //make function for deleting
     public void deleteById(Long id) {
         conferenceRepository.deleteById(id);
