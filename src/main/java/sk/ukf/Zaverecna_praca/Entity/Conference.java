@@ -48,8 +48,10 @@ public class Conference {
     private LocalDateTime updatedAt;
 
     // Relationship with stages
-    //@OneToMany(mappedBy = "conference", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<Stage> stages;
+    @OneToMany(mappedBy = "conference", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    //@JsonManagedReference // Add this annotation
+    private List<Stage> stages;
 
     // Relationship with notes
     @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL)
@@ -130,11 +132,11 @@ public class Conference {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-/*
+
     public List<Stage> getStages() {
         return stages;
     }
-
+/*
     public void setStages(List<Stage> stages) {
         this.stages = stages;
     }
