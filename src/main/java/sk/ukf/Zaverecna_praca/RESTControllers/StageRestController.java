@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/stages")
-public class StageController {
+public class StageRestController {
 
     @Autowired
     private StageService stageService;
@@ -28,7 +28,7 @@ public class StageController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Stage> getStageById(@PathVariable Long id) {
-        Optional<Stage> stage = stageService.getStageById(id);
+        Optional<Stage> stage = stageService.findStageById(id);
         return stage.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -57,7 +57,7 @@ public class StageController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Stage> updateStage(@PathVariable Long id, @RequestBody Stage updatedStage) {
-        Optional<Stage> existingStage = stageService.getStageById(id);
+        Optional<Stage> existingStage = stageService.findStageById(id);
 
         if (existingStage.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -82,7 +82,7 @@ public class StageController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteStage(@PathVariable Long id) {
-        Optional<Stage> existingStage = stageService.getStageById(id);
+        Optional<Stage> existingStage = stageService.findStageById(id);
         if (existingStage.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

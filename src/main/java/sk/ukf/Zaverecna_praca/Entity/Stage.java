@@ -27,17 +27,17 @@ public class Stage {
     @Size(max = 65500, message = "Comment must not exceed 65500 characters")
     private String comment;
 
-    @ManyToOne(optional = false, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "conference_id", nullable = false, referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_stages_conferences",
                     foreignKeyDefinition = "FOREIGN KEY (conference_id) REFERENCES conferences(id) ON DELETE CASCADE ON UPDATE CASCADE"))
     @NotNull(message = "Conference must be specified")
-    //@JsonBackReference // Add this annotation
     private Conference conference;
-/*
+
+
     @OneToMany(mappedBy = "stage", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Presentation> presentations;
-*/
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 

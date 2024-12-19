@@ -18,7 +18,7 @@ public class StageService {
         return stageRepository.findAll();
     }
 
-    public Optional<Stage> getStageById(Long id){
+    public Optional<Stage> findStageById(Long id){
         return stageRepository.findById(id);
     }
 
