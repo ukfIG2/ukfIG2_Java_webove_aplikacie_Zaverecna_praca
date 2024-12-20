@@ -1,5 +1,6 @@
 package sk.ukf.Zaverecna_praca.RESTControllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,45 +18,33 @@ public class SponsorHasConferenceController {
     private SponsorHasConferenceService sponsorHasConferenceService;
 
     @GetMapping
-    public ResponseEntity<List<SponsorHasConference>> getAll(){
+    public ResponseEntity<List<SponsorHasConference>> getAll() {
         List<SponsorHasConference> sponsorHasConferences = sponsorHasConferenceService.findAll();
         return ResponseEntity.ok(sponsorHasConferences);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SponsorHasConference> getById(@PathVariable Long id){
-        return sponsorHasConferenceService.findById(id).map(ResponseEntity::ok)
+    public ResponseEntity<SponsorHasConference> getById(@PathVariable Long id) {
+        return sponsorHasConferenceService.findById(id)
+                .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<SponsorHasConference> create(@RequestBody SponsorHasConference sponsorHasConference){
-        if (sponsorHasConference.getConference().getId() == null || sponsorHasConference.getSponsor().getId() == null){
-            return ResponseEntity.badRequest().body(null);
-        }
-
-        sponsorHasConferenceService.save(sponsorHasConference.getConference().getId(), sponsorHasConference.getSponsor().getId());
-        return ResponseEntity.ok(sponsorHasConference);
+    public ResponseEntity<SponsorHasConference> create(@RequestBody @Valid SponsorHasConference sponsorHasConference) {
+        SponsorHasConference savedSponsorHasConference = sponsorHasConferenceService.create(sponsorHasConference);
+        return ResponseEntity.ok(savedSponsorHasConference);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SponsorHasConference> update(@PathVariable Long id, @RequestBody SponsorHasConference updatedSponsorHasConference){
-        if (updatedSponsorHasConference.getConference().getId() == null || updatedSponsorHasConference.getSponsor().getId() == null){
-            return ResponseEntity.badRequest().body(null);
-        }
-
-        Optional<SponsorHasConference> existingSponsorHasConference = sponsorHasConferenceService.findById(id);
-        if (existingSponsorHasConference.isPresent()) {
-            updatedSponsorHasConference.setId(id);
-            sponsorHasConferenceService.update(id, updatedSponsorHasConference.getComment());
-            return ResponseEntity.ok(updatedSponsorHasConference);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<SponsorHasConference> update(@PathVariable Long id, @RequestBody @Valid SponsorHasConference updatedSponsorHasConference) {
+        Optional<SponsorHasConference> updatedSponsorHasConferenceOpt = sponsorHasConferenceService.update(id, updatedSponsorHasConference.getComment());
+        return updatedSponsorHasConferenceOpt.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         Optional<SponsorHasConference> existingSponsorHasConference = sponsorHasConferenceService.findById(id);
         if (existingSponsorHasConference.isEmpty()) {
             return ResponseEntity.notFound().build();

@@ -21,47 +21,49 @@ public class SponsorHasConferenceService {
     @Autowired
     private ConferenceService conferenceService;
 
-    public List<SponsorHasConference> findAll(){
+    public List<SponsorHasConference> findAll() {
         return sponsorHasConferenceRepository.findAll();
     }
 
-    public Optional<SponsorHasConference> findById(Long id){
+    public Optional<SponsorHasConference> findById(Long id) {
         return sponsorHasConferenceRepository.findById(id);
     }
 
-    public void save(Long conferenceId, Long sponsorId){
-    SponsorHasConference sponsorHasConference = new SponsorHasConference();
+    public SponsorHasConference create(SponsorHasConference sponsorHasConference) {
+        SponsorHasConference newSponsorHasConference = new SponsorHasConference();
 
-    Optional<Conference> conferenceOptional = conferenceService.findById(conferenceId);
-    if (conferenceOptional.isPresent()) {
-        sponsorHasConference.setConference(conferenceOptional.get());
-    } else {
-        throw new IllegalArgumentException("Conference with id " + conferenceId + " not found");
+        Optional<Conference> conferenceOptional = conferenceService.findById(sponsorHasConference.getConference().getId());
+        if (conferenceOptional.isPresent()) {
+            newSponsorHasConference.setConference(conferenceOptional.get());
+        } else {
+            throw new IllegalArgumentException("Conference with id " + sponsorHasConference.getConference().getId() + " not found");
+        }
+
+        Optional<Sponsor> sponsorOptional = sponsorRepository.findById(sponsorHasConference.getSponsor().getId());
+        if (sponsorOptional.isPresent()) {
+            newSponsorHasConference.setSponsor(sponsorOptional.get());
+        } else {
+            throw new IllegalArgumentException("Sponsor with id " + sponsorHasConference.getSponsor().getId() + " not found");
+        }
+
+        newSponsorHasConference.setComment(sponsorHasConference.getComment());
+
+        return sponsorHasConferenceRepository.save(newSponsorHasConference);
     }
 
-    Optional<Sponsor> sponsorOptional = sponsorRepository.findById(sponsorId);
-    if (sponsorOptional.isPresent()) {
-        sponsorHasConference.setSponsor(sponsorOptional.get());
-    } else {
-        throw new IllegalArgumentException("Sponsor with id " + sponsorId + " not found");
+    public Optional<SponsorHasConference> update(Long id, String comment) {
+        Optional<SponsorHasConference> sponsorHasConferenceOptional = sponsorHasConferenceRepository.findById(id);
+
+        if (sponsorHasConferenceOptional.isPresent()) {
+            SponsorHasConference sponsorHasConference = sponsorHasConferenceOptional.get();
+            sponsorHasConference.setComment(comment);
+            return Optional.of(sponsorHasConferenceRepository.save(sponsorHasConference));
+        } else {
+            return Optional.empty();
+        }
     }
 
-    sponsorHasConferenceRepository.save(sponsorHasConference);
-}
-
-    public void update(Long id, String comment){
-    Optional<SponsorHasConference> sponsorHasConferenceOptional = sponsorHasConferenceRepository.findById(id);
-
-    if (sponsorHasConferenceOptional.isPresent()) {
-        SponsorHasConference sponsorHasConference = sponsorHasConferenceOptional.get();
-        sponsorHasConference.setComment(comment);
-        sponsorHasConferenceRepository.save(sponsorHasConference);
-    } else {
-        throw new IllegalArgumentException("SponsorHasConference with id " + id + " not found");
-    }
-}
-
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         sponsorHasConferenceRepository.deleteById(id);
     }
 }

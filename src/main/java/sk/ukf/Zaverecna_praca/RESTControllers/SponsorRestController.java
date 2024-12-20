@@ -1,5 +1,6 @@
 package sk.ukf.Zaverecna_praca.RESTControllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,57 +30,16 @@ public class SponsorRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Sponsor> createSponsor(@RequestBody Map<String, Object> sponsorRequest) {
-        // Extract fields from the JSON request
-        String nameOfSponsor = (String) sponsorRequest.get("nameOfSponsor");
-        String url = (String) sponsorRequest.get("url");
-        String image = (String) sponsorRequest.get("image");
-        String comment = (String) sponsorRequest.get("comment");
-
-        // Create the Sponsor object
-        Sponsor newSponsor = new Sponsor();
-        newSponsor.setNameOfSponsor(nameOfSponsor);
-        newSponsor.setUrl(url);
-        newSponsor.setImage(image);
-        newSponsor.setComment(comment);
-
-        // Save the sponsor
-        sponsorService.save(newSponsor);
-        return ResponseEntity.ok(newSponsor);
+    public ResponseEntity<Sponsor> createSponsor(@RequestBody @Valid Sponsor sponsor) {
+        Sponsor savedSponsor = sponsorService.createSponsor(sponsor);
+        return ResponseEntity.ok(savedSponsor);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Sponsor> updateSponsor(@PathVariable Long id, @RequestBody Map<String, Object> sponsorRequest) {
-        // Find the sponsor by ID
-        Optional<Sponsor> existingSponsorOpt = sponsorService.findById(id);
-        if (existingSponsorOpt.isEmpty()) {
-            return ResponseEntity.notFound().build(); // Return 404 if sponsor doesn't exist
-        }
-
-        Sponsor existingSponsor = existingSponsorOpt.get();
-
-        // Update fields from the JSON request
-        String nameOfSponsor = (String) sponsorRequest.get("nameOfSponsor");
-        String url = (String) sponsorRequest.get("url");
-        String image = (String) sponsorRequest.get("image");
-        String comment = (String) sponsorRequest.get("comment");
-
-        if (nameOfSponsor != null) {
-            existingSponsor.setNameOfSponsor(nameOfSponsor);
-        }
-        if (url != null) {
-            existingSponsor.setUrl(url);
-        }
-        if (image != null) {
-            existingSponsor.setImage(image);
-        }
-        if (comment != null) {
-            existingSponsor.setComment(comment);
-        }
-
-        // Save the updated sponsor
-        sponsorService.save(existingSponsor);
-        return ResponseEntity.ok(existingSponsor);
+    public ResponseEntity<Sponsor> updateSponsor(@PathVariable Long id, @RequestBody @Valid Sponsor sponsor) {
+        Optional<Sponsor> updatedSponsor = sponsorService.updateSponsor(id, sponsor);
+        return updatedSponsor.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
