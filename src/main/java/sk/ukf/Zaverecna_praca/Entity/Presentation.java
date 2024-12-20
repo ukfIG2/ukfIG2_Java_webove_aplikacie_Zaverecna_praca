@@ -1,5 +1,6 @@
 package sk.ukf.Zaverecna_praca.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -59,9 +60,11 @@ public class Presentation {
 
     // Bi-directional mapping (optional)
     @OneToMany(mappedBy = "presentation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<PresentationsHasSpeakers> speakersRelations = new ArrayList<>();
 
     @OneToMany(mappedBy = "presentation", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<PresentationsHasParticipants> participantsRelations = new ArrayList<>();
 
     @Column(name = "comment", columnDefinition = "TEXT COLLATE utf8mb4_slovak_ci")
@@ -162,23 +165,6 @@ public class Presentation {
         this.stage = stage;
     }
 
-/*
-    public Set<PresentationsHasParticipants> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(Set<PresentationsHasParticipants> participants) {
-        this.participants = participants;
-    }
-
-    public Set<PresentationsHasSpeakers> getSpeakers() {
-        return speakers;
-    }
-
-    public void setSpeakers(Set<PresentationsHasSpeakers> speakers) {
-        this.speakers = speakers;
-    }
-*/
     public String getComment() {
         return comment;
     }

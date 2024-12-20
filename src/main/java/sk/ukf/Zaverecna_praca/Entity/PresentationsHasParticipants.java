@@ -15,13 +15,13 @@ public class PresentationsHasParticipants {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "presentation_id", nullable = false, referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_presentations_has_participants_presentations",
                     foreignKeyDefinition = "FOREIGN KEY (presentation_id) REFERENCES presentations(id) ON DELETE CASCADE ON UPDATE CASCADE"))
     private Presentation presentation;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_presentations_has_participants_users",
                     foreignKeyDefinition = "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE"))

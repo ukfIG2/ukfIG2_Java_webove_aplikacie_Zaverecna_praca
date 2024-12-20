@@ -1,5 +1,6 @@
 package sk.ukf.Zaverecna_praca.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -90,9 +91,11 @@ public class User {
 
 // Bi-directional mapping (optional)
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<PresentationsHasSpeakers> speakersRelations = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<PresentationsHasParticipants> participantsRelations = new ArrayList<>();
 
 
