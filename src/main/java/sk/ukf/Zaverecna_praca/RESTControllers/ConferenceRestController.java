@@ -1,5 +1,6 @@
 package sk.ukf.Zaverecna_praca.RESTControllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,35 +31,16 @@ public class ConferenceRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Conference> createConference(@RequestBody Conference conference) {
-        // Create a new Conference object with only the required fields
-        Conference newConference = new Conference();
-        newConference.setNameOfConference(conference.getNameOfConference());
-        newConference.setDateOfConference(conference.getDateOfConference());
-        newConference.setComment(conference.getComment());
-        // Set other fields to their default values or handle them as needed
-
-        conferenceService.save(newConference);
-        return ResponseEntity.ok(newConference);
+    public ResponseEntity<Conference> createConference(@RequestBody @Valid Conference conference) {
+        Conference savedConference = conferenceService.createConference(conference);
+        return ResponseEntity.ok(savedConference);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Conference> updateConference(@PathVariable Long id, @RequestBody Conference updatedConference) {
-        Optional<Conference> conferenceOptional = conferenceService.findById(id);
-        if (conferenceOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-
-        Conference conference = conferenceOptional.get();
-    
-        // Update specific fields
-        conference.setNameOfConference(updatedConference.getNameOfConference());
-        conference.setDateOfConference(updatedConference.getDateOfConference());
-        conference.setComment(updatedConference.getComment());
-        // Add more fields as needed
-    
-        conferenceService.save(conference);
-        return ResponseEntity.ok(conference);
+    public ResponseEntity<Conference> updateConference(@PathVariable Long id, @RequestBody @Valid Conference updatedConference) {
+        Optional<Conference> conferenceOptional = conferenceService.updateConference(id, updatedConference);
+        return conferenceOptional.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
