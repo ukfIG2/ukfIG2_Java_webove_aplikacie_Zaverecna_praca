@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Size;
 import sk.ukf.Zaverecna_praca.Enums.Role;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -85,13 +87,15 @@ public class User {
             columnDefinition = "ENUM('ROLE_admin', 'ROLE_registered_visitor', 'ROLE_speaker')")
     //@NotBlank(message = "Role must not be empty") //Validator not found????
     private Role role = Role.ROLE_registered_visitor; // Default role
-/*
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PresentationsHasParticipants> presentationsHasParticipants;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PresentationsHasSpeakers> presentationsHasSpeakers;
-*/
+// Bi-directional mapping (optional)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PresentationsHasSpeakers> speakersRelations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PresentationsHasParticipants> participantsRelations = new ArrayList<>();
+
+
     // Lifecycle hooks for automatic timestamp updates
     @PrePersist
     protected void onCreate() {
@@ -227,4 +231,20 @@ public class User {
     }
 
  */
+
+    public List<PresentationsHasSpeakers> getSpeakersRelations() {
+        return speakersRelations;
+    }
+
+    public void setSpeakersRelations(List<PresentationsHasSpeakers> speakersRelations) {
+        this.speakersRelations = speakersRelations;
+    }
+
+    public List<PresentationsHasParticipants> getParticipantsRelations() {
+        return participantsRelations;
+    }
+
+    public void setParticipantsRelations(List<PresentationsHasParticipants> participantsRelations) {
+        this.participantsRelations = participantsRelations;
+    }
 }

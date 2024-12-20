@@ -7,6 +7,8 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -54,13 +56,14 @@ public class Presentation {
                     foreignKeyDefinition = "FOREIGN KEY (stage_id) REFERENCES stages(id) ON DELETE CASCADE ON UPDATE CASCADE"))
     @NotNull(message = "Stage must be specified")
     private Stage stage;
-/*
-    @OneToMany(mappedBy = "presentation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PresentationsHasParticipants> participants;
 
-    @OneToMany(mappedBy = "presentation", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<PresentationsHasSpeakers> speakers;
-*/
+    // Bi-directional mapping (optional)
+    @OneToMany(mappedBy = "presentation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PresentationsHasSpeakers> speakersRelations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "presentation", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PresentationsHasParticipants> participantsRelations = new ArrayList<>();
+
     @Column(name = "comment", columnDefinition = "TEXT COLLATE utf8mb4_slovak_ci")
     @Size(max = 65500, message = "Comment must not exceed 65500 characters")
     private String comment;
@@ -182,5 +185,21 @@ public class Presentation {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public List<PresentationsHasSpeakers> getSpeakersRelations() {
+        return speakersRelations;
+    }
+
+    public void setSpeakersRelations(List<PresentationsHasSpeakers> speakersRelations) {
+        this.speakersRelations = speakersRelations;
+    }
+
+    public List<PresentationsHasParticipants> getParticipantsRelations() {
+        return participantsRelations;
+    }
+
+    public void setParticipantsRelations(List<PresentationsHasParticipants> participantsRelations) {
+        this.participantsRelations = participantsRelations;
     }
 }
