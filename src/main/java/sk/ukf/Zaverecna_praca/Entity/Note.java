@@ -24,7 +24,7 @@ public class Note {
 
     @Column(name = "note", columnDefinition = "TEXT COLLATE utf8mb4_slovak_ci")
     @Size(max = 65500, message = "Note must not exceed 65500 characters")
-    private String comment;
+    private String note;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -62,12 +62,12 @@ public class Note {
         this.id = id;
     }
 
-    public String getComment() {
-        return comment;
+    public String getNote() {
+        return note;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public LocalDateTime getCreatedAt() {
