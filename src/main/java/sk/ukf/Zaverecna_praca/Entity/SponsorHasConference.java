@@ -17,21 +17,16 @@ public class SponsorHasConference {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "sponsors_id", nullable = false, referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_sponsors_has_conferences_sponsors",
                     foreignKeyDefinition = "FOREIGN KEY (sponsors_id) REFERENCES sponsors(id) ON DELETE CASCADE ON UPDATE CASCADE"))
-    //@JsonManagedReference
-    //@JsonIgnore
-    @JsonBackReference // Tells Jackson this is the "back" part of the relationship
     private Sponsor sponsor;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "conferences_id", nullable = false, referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_sponsors_has_conferences_conferences",
                     foreignKeyDefinition = "FOREIGN KEY (conferences_id) REFERENCES conferences(id) ON DELETE CASCADE ON UPDATE CASCADE"))
-    //@JsonManagedReference//
-    //@JsonIgnore
     private Conference conference;
 
     @Column(name = "comment", columnDefinition = "TEXT COLLATE utf8mb4_slovak_ci")

@@ -3,10 +3,7 @@ package sk.ukf.Zaverecna_praca.RESTControllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sk.ukf.Zaverecna_praca.Entity.Conference;
 import sk.ukf.Zaverecna_praca.Entity.Sponsor;
-import sk.ukf.Zaverecna_praca.Entity.SponsorHasConference;
-import sk.ukf.Zaverecna_praca.Service.ConferenceService;
 import sk.ukf.Zaverecna_praca.Service.SponsorService;
 
 import java.util.*;
@@ -17,11 +14,9 @@ public class SponsorRestController {
 
     @Autowired
     private SponsorService sponsorService;
-    @Autowired
-    private ConferenceService conferenceService;
 
     @GetMapping
-    public ResponseEntity<List<Sponsor>> getAllSponsors(){
+    public ResponseEntity<List<Sponsor>> getAllSponsors() {
         List<Sponsor> sponsors = sponsorService.findAll();
         return ResponseEntity.ok(sponsors);
     }
@@ -29,8 +24,8 @@ public class SponsorRestController {
     @GetMapping("/{id}")
     public ResponseEntity<Sponsor> getSponsorById(@PathVariable Long id) {
         return sponsorService.findById(id)
-               .map(ResponseEntity::ok)
-               .orElseGet(() -> ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -40,13 +35,6 @@ public class SponsorRestController {
         String url = (String) sponsorRequest.get("url");
         String image = (String) sponsorRequest.get("image");
         String comment = (String) sponsorRequest.get("comment");
-        Long conferenceId = Long.valueOf(sponsorRequest.get("conferenceId").toString());
-
-        // Validate and fetch the referenced conference
-        Optional<Conference> existingConference = conferenceService.findById(conferenceId);
-        if (existingConference.isEmpty()) {
-            return ResponseEntity.badRequest().body(null); // Return 400 Bad Request if conference doesn't exist
-        }
 
         // Create the Sponsor object
         Sponsor newSponsor = new Sponsor();
@@ -55,19 +43,11 @@ public class SponsorRestController {
         newSponsor.setImage(image);
         newSponsor.setComment(comment);
 
-        // Create and link SponsorHasConference
-        SponsorHasConference sponsorHasConference = new SponsorHasConference();
-        sponsorHasConference.setConference(existingConference.get());
-        sponsorHasConference.setSponsor(newSponsor);
-
-        Set<SponsorHasConference> sponsorHasConferences = new HashSet<>();
-        sponsorHasConferences.add(sponsorHasConference);
-        newSponsor.setSponsorHasConference(sponsorHasConferences);
-
         // Save the sponsor
         sponsorService.save(newSponsor);
         return ResponseEntity.ok(newSponsor);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<Sponsor> updateSponsor(@PathVariable Long id, @RequestBody Map<String, Object> sponsorRequest) {
         // Find the sponsor by ID
@@ -112,7 +92,4 @@ public class SponsorRestController {
         sponsorService.deleteById(id);
         return ResponseEntity.ok().build();
     }
-
-
-
 }

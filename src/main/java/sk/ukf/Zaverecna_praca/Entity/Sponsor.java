@@ -1,5 +1,6 @@
 package sk.ukf.Zaverecna_praca.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -47,7 +48,7 @@ public class Sponsor {
 
     // Relationship with conferences
     @OneToMany(mappedBy = "sponsor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    @JsonManagedReference // Tells Jackson this is the "forward" part of the relationship
+    @JsonIgnore
     private Set<SponsorHasConference> sponsorHasConference;
 
     // Lifecycle hooks for automatic timestamp updates
