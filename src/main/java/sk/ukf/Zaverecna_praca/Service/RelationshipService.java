@@ -42,18 +42,15 @@ public class RelationshipService {
         }
     }
 
-    // Delete user from presentation
     public void deleteUserFromPresentation(Long userId, Long presentationId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
         Presentation presentation = presentationRepository.findById(presentationId).orElseThrow(() -> new EntityNotFoundException("Presentation not found"));
 
-        // Deleting speaker relationship if exists
         PresentationsHasSpeakers speakerRelation = presentationHasSpeakersRepository.findByUserAndPresentation(user, presentation);
         if (speakerRelation != null) {
             presentationHasSpeakersRepository.delete(speakerRelation);
         }
 
-        // Deleting participant relationship if exists
         PresentationsHasParticipants participantRelation = presentationHasParticipantsRepository.findByUserAndPresentation(user, presentation);
         if (participantRelation != null) {
             presentationHasParticipantsRepository.delete(participantRelation);
