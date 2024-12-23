@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Login</title>
+  <title>Home</title>
 </head>
 <body>
-<h1>Login</h1>
-<form th:action="@{/log-in}" method="post">
-  <input type="text" name="username" placeholder="Username" required />
-  <input type="password" name="password" placeholder="Password" required />
-  <button type="submit">Login</button>
-</form>
+
+<h1>Welcome Home!</h1>
+
+<!-- Check if the user is authenticated and not anonymous -->
+<div th:if="${#authentication != null and #authentication.name != 'anonymousUser'}">
+  <p>You are logged in as <span th:text="${#authentication.name}">User</span>.</p>
+  <a href="/logout">Logout</a>
+</div>
+
+<!-- Optional: If the user is not authenticated, show a login prompt -->
+<div th:if="${#authentication == null}">
+  <p>You are not logged in. Please <a href="/login">log in</a>.</p>
+</div>
+
 </body>
 </html>

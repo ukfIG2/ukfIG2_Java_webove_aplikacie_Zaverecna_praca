@@ -57,10 +57,10 @@ public class User {
             columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
     @NotBlank(message = "Password must not be empty")
     @Size(min = 8, max = 255, message = "Password must be between 8 and 255 characters long")
-    @Pattern(
+    /*@Pattern(
             regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,255}$",
             message = "Password must contain at least one lowercase letter, one uppercase letter, and one number. Special characters are optional"
-    )
+    )*/
     private String password;
 
     @Column(name = "phone_number", length = 30,

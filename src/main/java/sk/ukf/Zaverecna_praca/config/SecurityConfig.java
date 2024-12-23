@@ -21,15 +21,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/login", "/log-in").permitAll()
+                        /*.requestMatchers("/login", "/log-in").permitAll()
+                        .requestMatchers("/register", "/register").permitAll()
                         .requestMatchers("/api/**").permitAll() // Na konci vymaz
-                        .requestMatchers("/MVC/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/MVC/**").permitAll()*/
+                        .anyRequest().permitAll()//authenticated()
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .loginProcessingUrl("/log-in")
-                        .defaultSuccessUrl("/", true)
+                        .defaultSuccessUrl("/MVC/conferences", true)
                         .permitAll()
                 )
                 .logout(logout -> logout

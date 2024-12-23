@@ -4,4 +4,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import sk.ukf.Zaverecna_praca.Entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
+    boolean existsByEmail(String email);
 }
