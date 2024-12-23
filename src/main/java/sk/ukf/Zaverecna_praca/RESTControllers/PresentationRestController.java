@@ -8,6 +8,7 @@ import sk.ukf.Zaverecna_praca.Entity.Presentation;
 import sk.ukf.Zaverecna_praca.Service.PresentationService;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -27,6 +28,20 @@ public class PresentationRestController {
     public ResponseEntity<Presentation> getPresentationById(@PathVariable Long id) {
         return presentationService.findById(id).map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    /*@GetMapping("/conference/{id}")
+    public ResponseEntity<List<Object[]>> getPresentationsByConferenceId(@PathVariable Long id) {
+        List<Object[]> presentations = presentationService.findPresentationsByConferenceId(id);
+        return ResponseEntity.ok(presentations);
+    }*/
+    @GetMapping("/conference/{id}")
+    public ResponseEntity<Map<String, List<Object[]>>> getPresentationsByConferenceId(@PathVariable Long id) {
+        // Fetch grouped presentations from the service
+        Map<String, List<Object[]>> groupedPresentations = presentationService.getPresentationsGroupedByStage(id);
+
+        // Return the grouped presentations as a ResponseEntity
+        return ResponseEntity.ok(groupedPresentations);
     }
 
     @PostMapping

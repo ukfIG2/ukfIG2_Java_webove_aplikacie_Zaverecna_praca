@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head th:replace="fragraments/header :: head">
+  <title>Conference Details</title>
+</head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+
+<div class="container my-5">
+
+  <!-- Conference Title -->
+  <h1 class="text-center mb-4" th:text="${sponsors[0][0]}">Conference Name</h1>
+
+  <!-- Conference Date -->
+  <p class="text-center text-muted" th:text="'Date: ' + ${sponsors[0][1]}"></p>
+
+  <!-- Conference State -->
+  <p class="text-center" th:text="'State: ' + ${sponsors[0][2]}"></p>
+
+  <!-- Sponsors Section -->
+  <h2 class="mt-5">Sponsors</h2>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="col" th:each="sponsor : ${sponsors}">
+      <div class="card shadow-sm h-100">
+        <img class="card-img-top" th:src="${sponsor[5]}" th:alt="${sponsor[3] + ' Logo'}">
+        <div class="card-body">
+          <h3 class="card-title text-primary" th:text="${sponsor[3]}"></h3>
+          <a class="btn btn-link" th:href="${sponsor[4]}" th:text="${sponsor[4]}">Visit Sponsor</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Presentations Section -->
+  <h2 class="mt-5">Presentations</h2>
+  <div th:each="entry : ${groupedPresentations}">
+    <div class="stage-box mt-4">
+      <h3 class="stage-title" th:text="'Stage: ' + ${entry.key}"></h3>
+
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col" th:each="presentation : ${entry.value}">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h3 class="card-title text-primary" th:text="${presentation[1]}"></h3>
+              <p class="card-text text-muted" th:text="'Time: ' + ${presentation[2]} + ' - ' + ${presentation[3]}"></p>
+              <p class="card-text" th:text="${presentation[4]}"></p>
+              <p class="card-text"><strong>Capacity:</strong> <span th:text="${presentation[5]}"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <div class="text-center mt-4">
+    <a href="/MVC/conferences" class="btn btn-secondary">Back to List</a>
+  </div>
+
+</div>
+
+</body>
+</html>

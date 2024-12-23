@@ -24,6 +24,10 @@ public class SponsorService {
         return sponsorRepository.findById(id);
     }
 
+    public List<Object[]> findSponsorsByConferenceId(Long conference) {
+        return sponsorRepository.findSponsorsByConferenceId(conference);
+    }
+
     public Sponsor createSponsor(Sponsor sponsor) {
         Sponsor newSponsor = new Sponsor();
         newSponsor.setNameOfSponsor(sponsor.getNameOfSponsor());

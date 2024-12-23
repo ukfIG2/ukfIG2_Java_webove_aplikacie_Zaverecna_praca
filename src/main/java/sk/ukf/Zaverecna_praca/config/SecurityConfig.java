@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/login", "/log-in").permitAll()
                         .requestMatchers("/api/**").permitAll() // Na konci vymaz
+                        .requestMatchers("/MVC/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
@@ -36,11 +37,11 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .exceptionHandling(exceptionHandling -> exceptionHandling
+                        // Set accessDeniedPage globally but avoid forcing a login redirect for permitAll paths
                         .accessDeniedPage("/error")
-                        .authenticationEntryPoint((request, response, authException) -> {
-                            response.sendRedirect("/login");
-                        })
                 );
+
         return http.build();
     }
+
 }

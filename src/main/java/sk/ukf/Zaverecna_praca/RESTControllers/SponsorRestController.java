@@ -29,6 +29,12 @@ public class SponsorRestController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/conference/{id}")
+    public ResponseEntity<List<Object[]>> getSponsorsByConferenceId(@PathVariable Long id) {
+        List<Object[]> sponsors = sponsorService.findSponsorsByConferenceId(id);
+        return ResponseEntity.ok(sponsors);
+    }
+
     @PostMapping
     public ResponseEntity<Sponsor> createSponsor(@RequestBody @Valid Sponsor sponsor) {
         Sponsor savedSponsor = sponsorService.createSponsor(sponsor);
