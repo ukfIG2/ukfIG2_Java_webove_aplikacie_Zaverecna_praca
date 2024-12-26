@@ -193,7 +193,7 @@ public String registerUser(@ModelAttribute("user") @Valid User user,
 
         // Redirect to login page after successful registration
         System.out.println("redirecting");
-        return "redirect:/login?success";
+        return "redirect:/login?register";
     }
 
 }

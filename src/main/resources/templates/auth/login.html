@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Home</title>
+  <title>Login</title>
 </head>
 <body>
+<h1>Login</h1>
 
-<h1>Welcome Home!</h1>
+<!-- Login Form -->
+<form th:action="@{/log-in}" method="post">
+  <!-- Email Input -->
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="username" placeholder="Enter your email" required>
+  </div>
 
-<!-- Check if the user is authenticated and not anonymous -->
-<div th:if="${#authentication != null and #authentication.name != 'anonymousUser'}">
-  <p>You are logged in as <span th:text="${#authentication.name}">User</span>.</p>
-  <a href="/logout">Logout</a>
+  <!-- Password Input -->
+  <div>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+  </div>
+
+  <!-- Submit Button -->
+  <div>
+    <button type="submit">Login</button>
+  </div>
+</form>
+
+<!-- Login Error Message -->
+<div th:if="${param.error}">
+  <p style="color: red;">Invalid email or password. Please try again.</p>
 </div>
 
-<!-- Optional: If the user is not authenticated, show a login prompt -->
-<div th:if="${#authentication == null}">
-  <p>You are not logged in. Please <a href="/login">log in</a>.</p>
+<!-- Optional Registration Link -->
+<div>
+  <p>Don't have an account? <a href="/register">Register here</a>.</p>
 </div>
-
 </body>
 </html>
