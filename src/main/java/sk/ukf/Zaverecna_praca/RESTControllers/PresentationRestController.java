@@ -30,20 +30,6 @@ public class PresentationRestController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    /*@GetMapping("/conference/{id}")
-    public ResponseEntity<List<Object[]>> getPresentationsByConferenceId(@PathVariable Long id) {
-        List<Object[]> presentations = presentationService.findPresentationsByConferenceId(id);
-        return ResponseEntity.ok(presentations);
-    }*/
-    @GetMapping("/conference/{id}")
-    public ResponseEntity<Map<String, List<Object[]>>> getPresentationsByConferenceId(@PathVariable Long id) {
-        // Fetch grouped presentations from the service
-        Map<String, List<Object[]>> groupedPresentations = presentationService.getPresentationsGroupedByStage(id);
-
-        // Return the grouped presentations as a ResponseEntity
-        return ResponseEntity.ok(groupedPresentations);
-    }
-
     @PostMapping
     public ResponseEntity<Presentation> createPresentation(@RequestBody @Valid Presentation presentation) {
         Presentation savedPresentation = presentationService.createPresentation(presentation);

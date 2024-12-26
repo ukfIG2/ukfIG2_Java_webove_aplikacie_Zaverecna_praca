@@ -9,11 +9,12 @@ import java.util.List;
 
 public interface SponsorRepository extends JpaRepository<Sponsor, Long> {
 
-    @Query("SELECT c.nameOfConference, c.dateOfConference, c.stateOfConference, s.nameOfSponsor, s.url, s.image FROM Sponsor s " +
-            "JOIN s.sponsorHasConference sc " +
-            "JOIN sc.conference c " +
-            "WHERE c.id = :conferenceId")
-    List<Object[]> findSponsorsByConferenceId(@Param("conferenceId") Long conferenceId);
-
-
+    @Query(value = """
+    SELECT s.*
+    FROM conferences c
+    JOIN sponsors_has_conferences shc ON c.id = shc.conferences_id
+    JOIN sponsors s ON shc.sponsors_id = s.id
+    WHERE c.id = :conferenceId
+    """, nativeQuery = true)
+    List<Sponsor> findSponsorsByConferenceId(@Param("conferenceId") Long conferenceId);
 }

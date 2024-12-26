@@ -2,8 +2,10 @@ package sk.ukf.Zaverecna_praca.RESTControllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import sk.ukf.Zaverecna_praca.DTOs.ConferenceDetail.ConferenceDTO;
 import sk.ukf.Zaverecna_praca.Entity.Conference;
 import sk.ukf.Zaverecna_praca.Service.ConferenceService;
 
@@ -51,5 +53,16 @@ public class ConferenceRestController {
         }
         conferenceService.deleteById(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{conferenceId}/details")
+    public ResponseEntity<ConferenceDTO> getConferenceDetails(@PathVariable Long conferenceId) {
+        Optional<ConferenceDTO> conferenceDetails = conferenceService.getConferenceDetails(conferenceId);
+
+        if (conferenceDetails.isPresent()) {
+            return ResponseEntity.ok(conferenceDetails.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }

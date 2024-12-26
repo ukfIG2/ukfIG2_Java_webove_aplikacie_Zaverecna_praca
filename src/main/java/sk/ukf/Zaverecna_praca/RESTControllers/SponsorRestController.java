@@ -8,6 +8,7 @@ import sk.ukf.Zaverecna_praca.Entity.Sponsor;
 import sk.ukf.Zaverecna_praca.Service.SponsorService;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("api/sponsors")
@@ -27,12 +28,6 @@ public class SponsorRestController {
         return sponsorService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/conference/{id}")
-    public ResponseEntity<List<Object[]>> getSponsorsByConferenceId(@PathVariable Long id) {
-        List<Object[]> sponsors = sponsorService.findSponsorsByConferenceId(id);
-        return ResponseEntity.ok(sponsors);
     }
 
     @PostMapping
@@ -57,5 +52,15 @@ public class SponsorRestController {
 
         sponsorService.deleteById(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}/sponsors")
+    public ResponseEntity<List<Sponsor>> getSponsorsByConferenceId(@PathVariable Long id) {
+        List<Sponsor> sponsors = sponsorService.findAll().stream()
+               .filter(sponsor -> sponsor.getSponsorHasConference().stream()
+                       .anyMatch(sponsorHasConference -> sponsorHasConference.getConference().getId().equals(id)))
+               .collect(Collectors.toList());
+        return ResponseEntity.ok(sponsors);
+
     }
 }

@@ -24,10 +24,6 @@ public class SponsorService {
         return sponsorRepository.findById(id);
     }
 
-    public List<Object[]> findSponsorsByConferenceId(Long conference) {
-        return sponsorRepository.findSponsorsByConferenceId(conference);
-    }
-
     public Sponsor createSponsor(Sponsor sponsor) {
         Sponsor newSponsor = new Sponsor();
         newSponsor.setNameOfSponsor(sponsor.getNameOfSponsor());
@@ -56,5 +52,9 @@ public class SponsorService {
 
     public void deleteById(Long id) {
         sponsorRepository.deleteById(id);
+    }
+
+    public List<Sponsor> getSponsorsByConferenceId(Long conferenceId) {
+        return sponsorRepository.findSponsorsByConferenceId(conferenceId);
     }
 }

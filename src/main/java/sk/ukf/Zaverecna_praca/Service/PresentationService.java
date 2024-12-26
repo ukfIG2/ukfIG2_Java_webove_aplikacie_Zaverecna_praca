@@ -27,20 +27,6 @@ public class PresentationService {
         return presentationRepository.findById(id);
     }
 
-    public List<Object[]> findPresentationsByConferenceId(Long stage) {
-        return presentationRepository.findPresentationsByConferenceId(stage);
-    }
-
-    // Method to group presentations by stage
-    public Map<String, List<Object[]>> getPresentationsGroupedByStage(Long conferenceId) {
-        // Fetch all presentations
-        List<Object[]> presentations = findPresentationsByConferenceId(conferenceId);
-
-        // Group presentations by stage (presentation[5] contains the stage name)
-        return presentations.stream()
-                .collect(Collectors.groupingBy(presentation -> (String) presentation[6])); // presentation[5] is the stage
-    }
-
     public Presentation createPresentation(Presentation presentation) {
         Optional<Stage> stageOptional = stageService.findStageById(presentation.getStage().getId());
         if (stageOptional.isEmpty()) {

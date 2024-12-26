@@ -48,7 +48,7 @@
                     <span class="role-text" sec:authorize="hasRole('admin')">Role: Admin</span>
                     <span class="role-text" sec:authorize="hasRole('speaker')">Role: Speaker</span>
                     <span class="role-text" sec:authorize="hasRole('registered_visitor')">Role: Registered Visitor</span>
-
+                    <span class="role-text" sec:authorize="isAnonymous()">Guest</span>
                     <!-- Login Button -->
                     <li class="nav-item" sec:authorize="isAnonymous()">
                         <a href="/login" class="btn btn-outline-light">Login</a>

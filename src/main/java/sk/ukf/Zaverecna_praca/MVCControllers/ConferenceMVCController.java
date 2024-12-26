@@ -1,18 +1,18 @@
 package sk.ukf.Zaverecna_praca.MVCControllers;
 
-import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import sk.ukf.Zaverecna_praca.Entity.Conference;
+import sk.ukf.Zaverecna_praca.DTOs.ConferenceDetail.ConferenceDTO;
+import sk.ukf.Zaverecna_praca.Entity.Sponsor;
 import sk.ukf.Zaverecna_praca.Service.ConferenceService;
-import sk.ukf.Zaverecna_praca.Service.PresentationService;
 import sk.ukf.Zaverecna_praca.Service.SponsorService;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/MVC")
@@ -21,43 +21,34 @@ public class ConferenceMVCController {
     @Autowired
     private ConferenceService conferenceService;
     @Autowired
-    private PresentationService presentationService;
-    @Autowired
     private SponsorService sponsorService;
 
+    // Display all conferences
     @GetMapping("/conferences")
     public String showAllConferences(Model model) {
-        List<Conference> conferences = conferenceService.findAll();
-        model.addAttribute("conferences", conferences);
-        return "Public/Conferences"; // Thymeleaf template location
+        model.addAttribute("conferences", conferenceService.findAll());
+        return "Public/Conferences"; // Thymeleaf template location for listing all conferences
     }
 
-    /*@GetMapping("/conferences/{id}")
-    public String showConferenceById(@PathVariable Long id, Model model) {
-        List<Object[]> presentations = presentationService.findPresentationsByConferenceId(id);
-        List<Object[]> sponsors = sponsorService.findSponsorsByConferenceId(id);
+    // Display details for a specific conference
+    @GetMapping("/conferences/{conferenceId}")
+    public String showConferenceDetails(@PathVariable Long conferenceId, Model model) {
+        // Fetch conference details
+        Optional<ConferenceDTO> optionalConferenceDetails = conferenceService.getConferenceDetails(conferenceId);
 
-        model.addAttribute("presentations", presentations);
+        if (optionalConferenceDetails.isEmpty()) {
+            // Handle case where conference details are not found
+            model.addAttribute("error", "Conference details not found for ID: " + conferenceId);
+            return "Public/Error"; // Thymeleaf template for error page
+        }
+
+        // Add conference details to the model
+        model.addAttribute("conferenceDetails", optionalConferenceDetails.get());
+
+        // Fetch sponsors for the conference and add to the model
+        List<Sponsor> sponsors = sponsorService.getSponsorsByConferenceId(conferenceId);
         model.addAttribute("sponsors", sponsors);
 
-        return "Public/ConferencesDetail"; // Thymeleaf template location
-    }*/
-
-    @GetMapping("/conferences/{id}")
-    public String showConferenceById(@PathVariable Long id, Model model) {
-        // Get the list of sponsors for the conference
-        List<Object[]> sponsors = sponsorService.findSponsorsByConferenceId(id);
-
-        // Get the grouped presentations by stage for the conference
-        Map<String, List<Object[]>> groupedPresentations = presentationService.getPresentationsGroupedByStage(id);
-
-        // Add both sponsors and grouped presentations to the model
-        model.addAttribute("groupedPresentations", groupedPresentations);
-        model.addAttribute("sponsors", sponsors);
-
-        // Return the Thymeleaf template location
-        return "Public/ConferencesDetail";
+        return "Public/ConferencesDetail"; // Thymeleaf template for displaying conference details
     }
-
-
 }
