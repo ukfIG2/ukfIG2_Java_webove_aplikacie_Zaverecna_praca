@@ -1,43 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-          crossorigin="anonymous">
-</head>
-<body>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="/">Plánovač konferencií</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <span class="role-text" sec:authorize="hasRole('admin')">Role: Admin</span>
-                    <span class="role-text" sec:authorize="hasRole('speaker')">Role: Speaker</span>
-                    <span class="role-text" sec:authorize="hasRole('registered_visitor')">Role: Registered Visitor</span>
-                    <span class="role-text" sec:authorize="isAnonymous()">Guest</span>
-                    <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a href="/login" class="btn btn-outline-light">Login</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a href="/register" class="btn btn-light">Register</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <form th:action="@{/logout}" method="post" class="d-inline">
-                            <button type="submit" class="btn btn-danger">Logout</button>
-                        </form>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
+
+<!-- Include the header fragment -->
+<head th:replace="fragraments/header :: head"></head>
+<header th:replace="fragraments/header :: header"></header>
 
 <div class="container mt-5">
     <h1>Register</h1>
