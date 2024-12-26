@@ -24,6 +24,11 @@
         .navbar .btn {
             margin-left: 0.5rem;
         }
+        .role-text {
+            color: white;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -38,12 +43,23 @@
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+
+                    <!-- Show user role as text -->
+                    <span class="role-text" sec:authorize="hasRole('admin')">Role: Admin</span>
+                    <span class="role-text" sec:authorize="hasRole('speaker')">Role: Speaker</span>
+                    <span class="role-text" sec:authorize="hasRole('registered_visitor')">Role: Registered Visitor</span>
+
+                    <!-- Login Button -->
                     <li class="nav-item" sec:authorize="isAnonymous()">
                         <a href="/login" class="btn btn-outline-light">Login</a>
                     </li>
+
+                    <!-- Register Button -->
                     <li class="nav-item" sec:authorize="isAnonymous()">
                         <a href="/register" class="btn btn-light">Register</a>
                     </li>
+
+                    <!-- Logout Button -->
                     <li class="nav-item" sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post" class="d-inline">
                             <button type="submit" class="btn btn-danger">Logout</button>
