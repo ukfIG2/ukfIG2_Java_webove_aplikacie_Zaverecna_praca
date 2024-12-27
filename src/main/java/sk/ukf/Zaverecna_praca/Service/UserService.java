@@ -88,5 +88,9 @@ public class UserService implements UserDetailsService {
                 .roles(user.getRole().name().substring(5)) // Remove "ROLE_" prefix for Spring Security
                 .build();
     }
+
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }
 

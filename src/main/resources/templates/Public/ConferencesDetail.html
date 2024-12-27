@@ -32,27 +32,59 @@
 
   <!-- Stages Section -->
   <h2 class="mt-5">Stages</h2>
-  <div th:each="stage : ${conferenceDetails.stages}" class="stage-box mt-4">
-    <h3 class="stage-title" th:text="'Stage: ' + ${stage.nameOfStage}">Stage Name</h3>
+  <div th:each="stage : ${conferenceDetails.stages}">
+    <!-- Hidden ID for Stage -->
+    <input type="hidden" th:value="${stage.stageID}" id="stageId" />
+
+    <h3 th:text="'Stage: ' + ${stage.nameOfStage}">Stage Name</h3>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
       <div class="col" th:each="presentation : ${stage.presentations}">
+        <!-- Hidden ID for Presentation -->
+        <input type="hidden" th:value="${presentation.presentationID}" id="presentationId" />
+
         <div class="card shadow-sm h-100">
           <div class="card-body">
-            <h3 class="card-title text-primary" th:text="${presentation.nameOfPresentation}">Presentation Name</h3>
-            <p class="card-text text-muted" th:text="'Time: ' + ${presentation.startAt} + ' - ' + ${presentation.endAt}">Presentation Time</p>
-            <p class="card-text" th:text="${presentation.longDescription}">Presentation Description</p>
-            <p class="card-text"><strong>Capacity:</strong> <span th:text="${presentation.capacity}"></span></p>
-            <h5 class="mt-3">Speakers</h5>
-            <ul>
-              <li th:each="user : ${presentation.users}">
-                <span th:text="${user.titleBeforeName}"></span>
-                <span th:text="${user.firstName}"></span>
-                <span th:text="${user.lastName}"></span>
-                <span th:text="${user.titleAfterName}"></span>
-                <span th:text="' (' + ${user.comment} + ')'"></span>
-              </li>
-            </ul>
+            <h3 th:text="${presentation.nameOfPresentation}">Presentation Name</h3>
+            <p th:text="'Time: ' + ${presentation.startAt} + ' - ' + ${presentation.endAt}">Time</p>
+            <p th:text="${presentation.longDescription}">Description</p>
+            <p><strong>Capacity:</strong> <span th:text="${presentation.capacity}"></span></p>
+
+            <!-- Button Logic for Registered Visitors -->
+            <div th:if="${#authorization.expression('isAuthenticated()')}">
+              <div th:switch="${#strings.toUpperCase(role)}">
+                <!-- Registered Visitor Logic -->
+                <div th:case="'ROLE_REGISTERED_VISITOR'">
+                  <button th:if="${presentation.alreadyRegistered}"
+                          class="btn btn-danger"
+                          th:onclick="'alert(\'Are you sure you want to unregister?\'); location.href=\'/MVC/presentations/unregister/' + ${presentation.presentationID} + '\';'">
+                    Unregister
+                  </button>
+                  <button th:if="${!presentation.alreadyRegistered}"
+                          class="btn btn-success"
+                          th:onclick="'alert(\'Are you sure you want to register?\'); location.href=\'/MVC/presentations/register/' + ${presentation.presentationID} + '\';'">
+                    Register
+                  </button>
+                </div>
+
+                <!-- Admin Logic -->
+                <div th:case="'ROLE_ADMIN'">
+                  <button class="btn btn-secondary" onclick="alert('Nothing for you to do')">Nothing for You to do</button>
+                </div>
+
+                <!-- Speaker Logic -->
+                <div th:case="'ROLE_SPEAKER'">
+                  <button class="btn btn-secondary" onclick="alert('Nothing for you to do')">Nothing for You to do</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Button for Non-Authenticated Users -->
+            <div th:if="${!#authorization.expression('isAuthenticated()')}">
+              <button class="btn btn-danger" onclick="alert('Cannot register for this presentation unless logged in')">
+                Cannot Register
+              </button>
+            </div>
           </div>
         </div>
       </div>

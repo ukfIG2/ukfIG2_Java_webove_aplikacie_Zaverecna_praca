@@ -61,53 +61,68 @@ public class ConferenceService {
         }
 
         ConferenceDTO conferenceDetails = new ConferenceDTO();
-        Map<String, StageDTO> stagesMap = new LinkedHashMap<>();
+        Map<Long, StageDTO> stagesMap = new LinkedHashMap<>();
 
         for (Object[] row : results) {
             // Extract row data
-            String conferenceName = (String) row[0];
-            java.sql.Date sqlDate = (java.sql.Date) row[1];
+
+            System.out.println(Arrays.toString(row));
+
+            Long conferenceIdFromRow = ((Number) row[0]).longValue();
+            String conferenceName = (String) row[1];
+            java.sql.Date sqlDate = (java.sql.Date) row[2];
             LocalDate conferenceDate = sqlDate.toLocalDate();
-            String conferenceState = (String) row[2];
-            String stageName = (String) row[3];
-            String presentationName = (String) row[4];
+            String conferenceState = (String) row[3];
+            Long stageIdFromRow = ((Number) row[4]).longValue();
+            String stageName = (String) row[5];
+            Long presentationIdFromRow = ((Number) row[6]).longValue();
+            String presentationName = (String) row[7];
 
             // Handle LocalTime conversions
-            java.sql.Time sqlStartTime = (java.sql.Time) row[5];
+            java.sql.Time sqlStartTime = (java.sql.Time) row[8];
             LocalTime startAt = sqlStartTime.toLocalTime();
 
-            java.sql.Time sqlEndTime = (java.sql.Time) row[6];
+            java.sql.Time sqlEndTime = (java.sql.Time) row[9];
             LocalTime endAt = sqlEndTime.toLocalTime();
 
-            String longDescription = (String) row[7];
-            int capacity = (int) row[8];
-            String titleBeforeName = (String) row[9];
-            String firstName = (String) row[10];
-            String lastName = (String) row[11];
-            String titleAfterName = (String) row[12];
-            String comment = (String) row[13];
+            String longDescription = (String) row[10];
+            int capacity = (int) row[11];
+
+            // Handle potential null values for speaker details
+            Long speakerIdFromRow = row[12] != null ? ((Number) row[12]).longValue() : null;
+            String titleBeforeName = row[13] != null ? row[13].toString() : null;
+            String firstName = row[14] != null ? row[14].toString() : null;
+            String lastName = row[15] != null ? row[15].toString() : null;
+            String titleAfterName = row[16] != null ? row[16].toString() : null;
+            String comment = row[17] != null ? row[17].toString() : null;
 
             // Set top-level conference details
+            conferenceDetails.setConferenceID(conferenceIdFromRow);
             conferenceDetails.setNameOfConference(conferenceName);
             conferenceDetails.setDateOfConference(conferenceDate);
             conferenceDetails.setStateOfConference(conferenceState);
 
             // Process stages
-            StageDTO stage = stagesMap.computeIfAbsent(stageName, name -> new StageDTO(name, new ArrayList<>()));
+            StageDTO stage = stagesMap.computeIfAbsent(stageIdFromRow, id -> new StageDTO(id, stageName, new ArrayList<>()));
 
             // Process presentations
             PresentationDTO presentation = stage.getPresentations().stream()
-                    .filter(p -> p.getNameOfPresentation().equals(presentationName))
+                    .filter(p -> p.getPresentationID().equals(presentationIdFromRow))
                     .findFirst()
                     .orElseGet(() -> {
-                        PresentationDTO newPresentation = new PresentationDTO(presentationName, startAt, endAt, longDescription, capacity, new ArrayList<>());
+                        PresentationDTO newPresentation = new PresentationDTO(presentationIdFromRow, presentationName, startAt, endAt, longDescription, capacity, null);
                         stage.getPresentations().add(newPresentation);
                         return newPresentation;
                     });
 
-            // Add users to presentations
-            UserDTO user = new UserDTO(titleBeforeName, firstName, lastName, titleAfterName, comment);
-            presentation.getUsers().add(user);
+            // Add users to presentations if speakerId is not null
+            if (speakerIdFromRow != null) {
+                if (presentation.getUsers() == null) {
+                    presentation.setUsers(new ArrayList<>());
+                }
+                UserDTO user = new UserDTO(speakerIdFromRow, titleBeforeName, firstName, lastName, titleAfterName, comment);
+                presentation.getUsers().add(user);
+            }
         }
 
         // Add stages to conference details

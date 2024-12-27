@@ -3,8 +3,17 @@ package sk.ukf.Zaverecna_praca.DTOs.ConferenceDetail;
 import java.util.List;
 
 public class StageDTO {
+    private Long stageID;
     private String nameOfStage;
     private List<PresentationDTO> presentations;
+
+    public Long getStageID() {
+        return stageID;
+    }
+
+    public void setStageID(Long stageID) {
+        this.stageID = stageID;
+    }
 
     public String getNameOfStage() {
         return nameOfStage;
@@ -22,7 +31,8 @@ public class StageDTO {
         this.presentations = presentations;
     }
 
-    public StageDTO(String nameOfStage, List<PresentationDTO> presentations) {
+    public StageDTO(Long id, String nameOfStage, List<PresentationDTO> presentations) {
+        stageID = id;
         this.nameOfStage = nameOfStage;
         this.presentations = presentations;
     }

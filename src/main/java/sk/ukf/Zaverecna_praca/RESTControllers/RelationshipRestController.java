@@ -25,6 +25,13 @@ public class RelationshipRestController {
         relationshipService.deleteUserFromPresentation(request.getUserId(), request.getPresentationId());
         return ResponseEntity.ok("User deleted from presentation successfully");
     }
+
+    @GetMapping("/isRegistered")
+    public ResponseEntity<Boolean> isUserRegistered(@RequestParam Long userId, @RequestParam Long presentationId) {
+        boolean isRegistered = relationshipService.isAlreadyRegistered(presentationId, userId);
+        return ResponseEntity.ok(isRegistered);
+    }
+
 }
 
 // Request class to represent the JSON input structure

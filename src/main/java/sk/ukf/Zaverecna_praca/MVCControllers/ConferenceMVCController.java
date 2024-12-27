@@ -1,6 +1,8 @@
 package sk.ukf.Zaverecna_praca.MVCControllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import sk.ukf.Zaverecna_praca.DTOs.ConferenceDetail.ConferenceDTO;
 import sk.ukf.Zaverecna_praca.Entity.Sponsor;
 import sk.ukf.Zaverecna_praca.Service.ConferenceService;
+import sk.ukf.Zaverecna_praca.Service.RelationshipService;
+import sk.ukf.Zaverecna_praca.Entity.User;
 import sk.ukf.Zaverecna_praca.Service.SponsorService;
+import sk.ukf.Zaverecna_praca.Service.UserService;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +25,13 @@ public class ConferenceMVCController {
 
     @Autowired
     private ConferenceService conferenceService;
+
+    @Autowired
+    private RelationshipService relationshipService;
+
+    @Autowired
+    private UserService userService;
+
     @Autowired
     private SponsorService sponsorService;
 
@@ -30,25 +42,84 @@ public class ConferenceMVCController {
         return "Public/Conferences"; // Thymeleaf template location for listing all conferences
     }
 
-    // Display details for a specific conference
     @GetMapping("/conferences/{conferenceId}")
     public String showConferenceDetails(@PathVariable Long conferenceId, Model model) {
         // Fetch conference details
         Optional<ConferenceDTO> optionalConferenceDetails = conferenceService.getConferenceDetails(conferenceId);
 
         if (optionalConferenceDetails.isEmpty()) {
-            // Handle case where conference details are not found
             model.addAttribute("error", "Conference details not found for ID: " + conferenceId);
-            return "Public/Error"; // Thymeleaf template for error page
+            return "Public/Error";
         }
 
-        // Add conference details to the model
-        model.addAttribute("conferenceDetails", optionalConferenceDetails.get());
+        ConferenceDTO conferenceDetails = optionalConferenceDetails.get();
+        model.addAttribute("conferenceDetails", conferenceDetails);
 
-        // Fetch sponsors for the conference and add to the model
+        // Fetch sponsors for the conference
         List<Sponsor> sponsors = sponsorService.getSponsorsByConferenceId(conferenceId);
         model.addAttribute("sponsors", sponsors);
 
-        return "Public/ConferencesDetail"; // Thymeleaf template for displaying conference details
+        // Get user from security context
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        System.out.println("Username " + username);
+        User user = userService.findUserByEmail(username);
+/////
+        if (user != null) {
+            // Print the user details
+            System.out.println("User details:");
+            System.out.println("Email: " + user.getEmail());
+            System.out.println("Role: " + user.getRole());  // Assuming User has getRole method
+            System.out.println("ID: " + user.getId());  // Assuming User has getId method
+
+        } else {
+            System.out.println("User not found!");
+        }
+        /////
+
+        if (user != null) {
+            // Add user's role to the model
+            model.addAttribute("role", user.getRole());
+
+            // Check if the user is already registered for any presentations
+            conferenceDetails.getStages().forEach(stage -> stage.getPresentations().forEach(presentation -> {
+                boolean alreadyRegistered = relationshipService.isAlreadyRegistered(presentation.getPresentationID(), user.getId());
+                presentation.setAlreadyRegistered(alreadyRegistered);
+            }));
+        }
+
+        // For debugging purposes: Print the model context to the console
+        System.out.println("Model attributes: " + model.asMap());
+
+        return "Public/ConferencesDetail";
     }
+
+
+
+    @GetMapping("/presentations/register/{presentationId}")
+    public String registerForPresentation(@PathVariable Long presentationId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        User user = userService.findUserByEmail(username);
+
+        if (user != null) {
+            relationshipService.addUserToPresentation(user.getId(), presentationId);
+        }
+
+        return "redirect:/MVC/conferences";
+    }
+
+    @GetMapping("/presentations/unregister/{presentationId}")
+    public String unregisterForPresentation(@PathVariable Long presentationId) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        User user = userService.findUserByEmail(username);
+
+        if (user != null) {
+            relationshipService.deleteUserFromPresentation(user.getId(), presentationId);
+        }
+
+        return "redirect:/MVC/conferences";
+    }
+
 }

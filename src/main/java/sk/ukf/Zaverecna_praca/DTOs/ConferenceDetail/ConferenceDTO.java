@@ -5,10 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ConferenceDTO {
+    private Long conferenceID;
     private String nameOfConference;
     private LocalDate dateOfConference;
     private String stateOfConference;
     private List<StageDTO> stages;
+
+    public Long getConferenceID() {
+        return conferenceID;
+    }
+
+    public void setConferenceID(Long conferenceID) {
+        this.conferenceID = conferenceID;
+    }
 
     public String getNameOfConference() {
         return nameOfConference;
@@ -42,7 +51,8 @@ public class ConferenceDTO {
         this.stages = stages;
     }
 
-    public ConferenceDTO(String nameOfConference, LocalDate dateOfConference, String stateOfConference, List<StageDTO> stages) {
+    public ConferenceDTO(Long id, String nameOfConference, LocalDate dateOfConference, String stateOfConference, List<StageDTO> stages) {
+        conferenceID = id;
         this.nameOfConference = nameOfConference;
         this.dateOfConference = dateOfConference;
         this.stateOfConference = stateOfConference;

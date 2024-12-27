@@ -11,15 +11,19 @@ public interface ConferenceRepository extends JpaRepository<Conference, Long> {
 
     @Query(value = """
     SELECT 
+        c.id AS conferenceID,
         c.name_of_conference AS nameOfConference,
         c.date_of_conference AS dateOfConference,
         c.state_of_conference AS stateOfConference,
+        s.id AS stageID,
         s.name_of_stage AS nameOfStage,
+        p.id AS presentationID,
         p.name_of_presentation AS nameOfPresentation,
         p.start_at AS startAt,
         p.end_at AS endAt,
         p.long_description AS longDescription,
         p.capacity AS capacity,
+        u.id AS userID,
         u.title_before_name AS titleBeforeName,
         u.first_name AS firstName,
         u.last_name AS lastName,

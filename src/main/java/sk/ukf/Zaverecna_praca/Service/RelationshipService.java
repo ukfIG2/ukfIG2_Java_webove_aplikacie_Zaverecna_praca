@@ -56,4 +56,24 @@ public class RelationshipService {
             presentationHasParticipantsRepository.delete(participantRelation);
         }
     }
+
+    public boolean isAlreadyRegistered(Long presentationId, Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        Presentation presentation = presentationRepository.findById(presentationId).orElseThrow(() -> new EntityNotFoundException("Presentation not found"));
+
+        // Check in PresentationsHasParticipants table
+        PresentationsHasParticipants participantRelation = presentationHasParticipantsRepository.findByUserAndPresentation(user, presentation);
+        if (participantRelation != null) {
+            return true;
+        }
+
+        // Check in PresentationsHasSpeakers table
+        PresentationsHasSpeakers speakerRelation = presentationHasSpeakersRepository.findByUserAndPresentation(user, presentation);
+        if (speakerRelation != null) {
+            return true;
+        }
+
+        return false; // Not found in either table
+    }
+
 }
