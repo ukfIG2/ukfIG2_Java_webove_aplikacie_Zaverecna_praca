@@ -1,6 +1,7 @@
 package sk.ukf.Zaverecna_praca.RESTControllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,5 +29,11 @@ public class PresentationsHasParticipantsRestController {
     public ResponseEntity<PresentationsHasParticipants> getPresentationById(@PathVariable Long id){
         return presentationService.findById(id).map(ResponseEntity::ok)
                 .orElseThrow(() -> new RuntimeException("Participant with id " + id + " not found"));
+    }
+
+    @GetMapping("/{presentationId}/{userId}")
+    public ResponseEntity<Boolean> isUserRegisteredForPresentation(@PathVariable Long presentationId, @PathVariable Long userId) {
+        boolean isRegistered = presentationService.isUserRegisteredForPresentation(presentationId, userId);
+        return ResponseEntity.status(HttpStatus.OK).body(isRegistered);
     }
 }

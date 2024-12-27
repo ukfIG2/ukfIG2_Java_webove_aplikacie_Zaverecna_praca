@@ -10,6 +10,7 @@ public class PresentationDTO {
     private String longDescription;
     private int capacity;
     private List<UserDTO> users;
+    private boolean isUserRegisteredForPresentation;
 
     public String getNameOfPresentation() {
         return nameOfPresentation;
@@ -66,5 +67,14 @@ public class PresentationDTO {
         this.longDescription = longDescription;
         this.capacity = capacity;
         this.users = users;
+    }
+
+    // Getters and setters
+    public boolean isUserRegisteredForPresentation() {
+        return isUserRegisteredForPresentation;
+    }
+
+    public void setUserRegisteredForPresentation(boolean userRegisteredForPresentation) {
+        isUserRegisteredForPresentation = userRegisteredForPresentation;
     }
 }

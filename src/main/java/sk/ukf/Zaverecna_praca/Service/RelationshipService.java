@@ -51,7 +51,9 @@ public class RelationshipService {
             presentationHasSpeakersRepository.delete(speakerRelation);
         }
 
-        PresentationsHasParticipants participantRelation = presentationHasParticipantsRepository.findByUserAndPresentation(user, presentation);
+        PresentationsHasParticipants participantRelation = presentationHasParticipantsRepository.findByUserAndPresentation(user, presentation)
+                .orElse(null);
+
         if (participantRelation != null) {
             presentationHasParticipantsRepository.delete(participantRelation);
         }

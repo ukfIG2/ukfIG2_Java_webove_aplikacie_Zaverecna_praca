@@ -53,6 +53,26 @@
                 <span th:text="' (' + ${user.comment} + ')'"></span>
               </li>
             </ul>
+            <!-- Registration Buttons -->
+            <div sec:authorize="hasRole('ROLE_registered_visitor')">
+              <div th:if="${presentation.isUserRegisteredForPresentation}">
+                <form th:action="@{/MVC/presentations/unregister/{presentationId}(presentationId=${presentation.id})}" method="post">
+                  <button type="submit" class="btn btn-danger">Unregister from Presentation</button>
+                </form>
+              </div>
+              <div th:if="${!presentation.isUserRegistered}">
+                <form th:action="@{/MVC/presentations/register/{presentationId}(presentationId=${presentation.id})}" method="post">
+                  <button type="submit" class="btn btn-primary">Sign Up for Presentation</button>
+                </form>
+              </div>
+            </div>
+            <div sec:authorize="hasRole('ROLE_admin') or hasRole('ROLE_speaker')">
+              <p>Nothing for you to do.</p>
+            </div>
+            <div sec:authorize="isAnonymous()">
+              <p>You need to be logged in to register for the presentation.</p>
+            </div>
+          </div>
           </div>
         </div>
       </div>
