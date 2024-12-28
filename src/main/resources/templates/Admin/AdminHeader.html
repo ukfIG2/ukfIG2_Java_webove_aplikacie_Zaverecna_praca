@@ -1,18 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragraments/header :: head"></head>
+<head th:replace="fragments/header :: head">
+    <style>
+        /* Custom styling for the active button */
+        .btn-outline-primary.active {
+            background-color: red;
+            color: white;
+            border-color: red;
+        }
+    </style>
+</head>
 <body>
 <th:block th:fragment="navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <!-- Button group for navigation -->
             <div class="btn-group" role="group" aria-label="Navigation">
-                <a href="/MVC/admin/conferences" class="btn btn-primary">Conferences</a>
-                <a href="/MVC/admin/stages" class="btn btn-outline-primary">Stages</a>
-                <a href="/MVC/admin/presentations" class="btn btn-outline-primary">Presentations</a>
+                <a href="/MVC/admin/conferences" class="btn btn-outline-primary" id="conferences-link">Conferences</a>
+                <a href="/MVC/admin/stages" class="btn btn-outline-primary" id="stages-link">Stages</a>
+                <a href="/MVC/admin/presentations" class="btn btn-outline-primary" id="presentations-link">Presentations</a>
             </div>
         </div>
     </nav>
 </th:block>
+
+<script>
+    // Get the current URL path
+    const currentPath = window.location.pathname;
+
+    // Remove 'active' class from all navigation links
+    const links = document.querySelectorAll('.btn-outline-primary');
+    links.forEach(link => link.classList.remove('active'));
+
+    // Add the 'active' class to the link that corresponds to the current page
+    if (currentPath === '/MVC/admin/conferences') {
+        document.getElementById('conferences-link').classList.add('active');
+    } else if (currentPath === '/MVC/admin/stages') {
+        document.getElementById('stages-link').classList.add('active');
+    } else if (currentPath === '/MVC/admin/presentations') {
+        document.getElementById('presentations-link').classList.add('active');
+    }
+</script>
 </body>
 </html>

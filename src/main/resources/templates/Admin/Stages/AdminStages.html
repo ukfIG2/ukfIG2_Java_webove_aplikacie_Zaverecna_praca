@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragraments/header :: head"></head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+<header th:replace="Admin/AdminHeader :: navbar"></header>
+
+<div class="container mt-4">
+    <h1>All Stages</h1>
+    <a href="/MVC/admin/stages/create" class="btn btn-primary mb-3">Create New Stage</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Comment</th>
+            <th>Conference Name</th>
+            <th>Conference Date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="stage : ${stages}">
+            <td th:text="${stage.id}"></td>
+            <td th:text="${stage.nameOfStage}"></td>
+            <td th:text="${stage.comment}"></td>
+            <td th:text="${stage.conference.nameOfConference}"></td>
+            <td th:text="${#temporals.format(stage.conference.dateOfConference, 'yyyy-MM-dd')}"></td>
+            <td>
+                <a th:href="@{'/MVC/admin/stages/update/' + ${stage.id}}" class="btn btn-warning btn-sm">Edit</a>
+                <a th:href="@{'/MVC/admin/stages/delete/' + ${stage.id}}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

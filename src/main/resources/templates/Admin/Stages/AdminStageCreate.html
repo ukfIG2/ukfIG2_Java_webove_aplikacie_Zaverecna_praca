@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragraments/header :: head"></head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+<header th:replace="Admin/AdminHeader :: navbar"></header>
+
+
+<div class="container mt-4">
+    <h1>Create Stage</h1>
+    <form th:action="@{/MVC/admin/stages/create}" method="post">
+        <div class="mb-3">
+            <label for="nameOfStage" class="form-label">Stage Name</label>
+            <input type="text" id="nameOfStage" name="nameOfStage" class="form-control" required th:field="*{stage.nameOfStage}">
+
+        </div>
+        <div class="mb-3">
+            <label for="comment" class="form-label">Comment</label>
+            <textarea id="comment" name="comment" class="form-control" th:field="*{stage.comment}"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="conference" class="form-label">Conference</label>
+            <select id="conference" name="stage.conference.id" class="form-select" required th:field="*{stage.conference.id}"
+                    th:disabled="${#lists.isEmpty(conferences)}">
+                <option value="" disabled selected th:text="${#lists.isEmpty(conferences) ? 'No conferences available' : 'Select Conference'}"></option>
+                <option th:each="conference : ${conferences}" th:value="${conference.id}" th:text="${conference.nameOfConference}"></option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Save Stage</button>
+    </form>
+</div>
+</body>
+</html>
