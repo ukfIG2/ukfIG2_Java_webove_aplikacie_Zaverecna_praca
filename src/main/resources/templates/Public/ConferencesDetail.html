@@ -64,16 +64,19 @@
             <div th:if="${#authorization.expression('isAuthenticated()')}">
               <div th:switch="${#strings.toUpperCase(role)}">
                 <div th:case="'ROLE_REGISTERED_VISITOR'">
-                  <button th:if="${presentation.alreadyRegistered}"
-                          class="btn btn-danger"
-                          th:onclick="'alert(\'Naozaj sa chcete odhlásiť?\'); location.href=\'/MVC/presentations/unregister/' + ${presentation.presentationID} + '\';'">
-                    Odhlásiť sa
-                  </button>
-                  <button th:if="${!presentation.alreadyRegistered}"
-                          class="btn btn-success"
-                          th:onclick="'alert(\'Naozaj sa chcete prihlásiť?\'); location.href=\'/MVC/presentations/register/' + ${presentation.presentationID} + '\';'">
-                    Prihlásiť sa
-                  </button>
+                  <!-- Unregister button (POST) -->
+                  <form th:if="${presentation.alreadyRegistered}" method="post" th:action="@{/MVC/presentations/unregister/{presentationId}(presentationId=${presentation.presentationID})}">                    <input type="hidden" name="_method" value="POST">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Naozaj sa chcete odhlásiť?')">
+                      Odhlásiť sa
+                    </button>
+                  </form>
+
+                  <!-- Register button (POST) -->
+                  <form th:if="${!presentation.alreadyRegistered}" method="post" th:action="@{/MVC/presentations/register/{presentationId}(presentationId=${presentation.presentationID})}">                    <input type="hidden" name="_method" value="POST">
+                    <button type="submit" class="btn btn-success" onclick="return confirm('Naozaj sa chcete prihlásiť?')">
+                      Prihlásiť sa
+                    </button>
+                  </form>
                 </div>
 
                 <div th:case="'ROLE_ADMIN'">

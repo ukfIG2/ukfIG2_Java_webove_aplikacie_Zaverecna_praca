@@ -1,5 +1,6 @@
 package sk.ukf.Zaverecna_praca.MVCControllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import sk.ukf.Zaverecna_praca.DTOs.ConferenceDetail.ConferenceDTO;
 import sk.ukf.Zaverecna_praca.Entity.Sponsor;
@@ -77,10 +79,9 @@ public class ConferenceMVCController {
         return "Public/ConferencesDetail";
     }
 
-
-
-    @GetMapping("/presentations/register/{presentationId}")
-    public String registerForPresentation(@PathVariable Long presentationId) {
+    @PostMapping("/presentations/register/{presentationId}")
+    public String registerForPresentation(@PathVariable Long presentationId, HttpServletRequest request) {
+        // Get the current logged-in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         User user = userService.findUserByEmail(username);
@@ -89,11 +90,16 @@ public class ConferenceMVCController {
             relationshipService.addUserToPresentation(user.getId(), presentationId);
         }
 
-        return "redirect:/MVC/conferences";
+        // Get the referrer URL (the URL where the user came from)
+        String referer = request.getHeader("Referer");
+
+        // Redirect to the page where the request came from
+        return "redirect:" + referer;
     }
 
-    @GetMapping("/presentations/unregister/{presentationId}")
-    public String unregisterForPresentation(@PathVariable Long presentationId) {
+    @PostMapping("/presentations/unregister/{presentationId}")
+    public String unregisterForPresentation(@PathVariable Long presentationId, HttpServletRequest request) {
+        // Get the current logged-in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         User user = userService.findUserByEmail(username);
@@ -102,7 +108,16 @@ public class ConferenceMVCController {
             relationshipService.deleteUserFromPresentation(user.getId(), presentationId);
         }
 
-        return "redirect:/MVC/conferences";
+        // Get the referrer URL (the page where the user came from)
+        String referer = request.getHeader("Referer");
+
+        // Fallback to /MVC/conferences if the referrer is not available
+        if (referer == null || referer.isEmpty()) {
+            referer = "/MVC/conferences";
+        }
+
+        // Redirect to the page where the request originated
+        return "redirect:" + referer;
     }
 
 }
