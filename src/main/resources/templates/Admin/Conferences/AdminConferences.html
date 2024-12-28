@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragraments/header :: head"></head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+<header th:replace="Admin/AdminHeader :: navbar"></header>
+<div class="container mt-4">
+    <h1>All Conferences</h1>
+    <a href="/MVC/admin/conferences/create" class="btn btn-primary mb-3">Create New Conference</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>State</th>
+            <th>Comment</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="conference : ${conferences}">
+            <td th:text="${conference.id}"></td>
+            <td th:text="${conference.nameOfConference}"></td>
+            <td th:text="${conference.dateOfConference}"></td>
+            <td th:text="${conference.stateOfConference}"></td>
+            <td th:text="${conference.comment}"></td>
+            <td>
+                <a th:href="@{'/MVC/admin/conferences/update/' + ${conference.id}}" class="btn btn-warning btn-sm">Edit</a>
+                <a th:href="@{'/MVC/admin/conferences/delete/' + ${conference.id}}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
