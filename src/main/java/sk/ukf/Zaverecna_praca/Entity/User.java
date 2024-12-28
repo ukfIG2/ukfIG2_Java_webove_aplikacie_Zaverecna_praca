@@ -25,56 +25,56 @@ public class User {
 
     @Column(name = "email", nullable = false, unique = true, length = 255,
             columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
-    @NotBlank(message = "Email must not be empty")
-    @Email(message = "Email must be valid")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Email must be in the correct format. ***@**.**")
-    @Size(max = 255, message = "Email must not exceed 255 characters")
+    @NotBlank(message = "Email nesmie byť prázdny")
+    @Email(message = "Email musí byť platný")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Email musí byť v správnom formáte. ***@**.**")
+    @Size(max = 255, message = "Email nesmie presiahnuť 255 znakov")
     private String email;
 
     @Column(name = "title_before_name", length = 255,
             columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
-    @Size(max = 255, message = "Title before name must not exceed 255 characters")
+    @Size(max = 255, message = "Titul pred menom nesmie presiahnuť 255 znakov")
     private String titleBeforeName;
 
     @Column(name = "first_name", nullable = false, length = 255,
             columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
-    @NotBlank(message = "First name must not be empty")
-    @Size(max = 255, message = "First name must not exceed 255 characters")
+    @NotBlank(message = "Meno nesmie byť prázdne")
+    @Size(max = 255, message = "Meno nesmie presiahnuť 255 znakov")
     private String firstName;
 
     @Column(name = "last_name", nullable = false, length = 255,
             columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
-    @NotBlank(message = "Last name must not be empty")
-    @Size(max = 255, message = "Last name must not exceed 255 characters")
+    @NotBlank(message = "Priezvisko nesmie byť prázdne")
+    @Size(max = 255, message = "Priezvisko nesmie presiahnuť 255 znakov")
     private String lastName;
 
     @Column(name = "title_after_name", length = 255,
             columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
-    @Size(max = 255, message = "Title after name must not exceed 255 characters")
+    @Size(max = 255, message = "Titul za menom nesmie presiahnuť 255 znakov")
     private String titleAfterName;
 
     @Column(name = "password", nullable = false, length = 255,
             columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
-    @NotBlank(message = "Password must not be empty")
-    @Size(min = 8, max = 255, message = "Password must be between 8 and 255 characters long")
-    /*@Pattern(
-            regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,255}$",
-            message = "Password must contain at least one lowercase letter, one uppercase letter, and one number. Special characters are optional"
-    )*/
+    @NotBlank(message = "Heslo nesmie byť prázdne")
+    @Size(min = 8, max = 255, message = "Heslo musí mať medzi 8 a 255 znakmi")
+/*@Pattern(
+        regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,255}$",
+        message = "Heslo musí obsahovať aspoň jedno malé písmeno, jedno veľké písmeno a jednu číslicu. Špeciálne znaky sú voliteľné"
+)*/
     private String password;
 
     @Column(name = "phone_number", length = 30,
             columnDefinition = "VARCHAR(30) COLLATE utf8mb4_slovak_ci")
-    @Size(max = 30, message = "Phone number must not exceed 30 characters")
+    @Size(max = 30, message = "Telefónne číslo nesmie presiahnuť 30 znakov")
     private String phoneNumber;
 
     @Column(name = "photo", length = 255,
             columnDefinition = "VARCHAR(255) COLLATE utf8mb4_slovak_ci")
-    @Size(max = 255, message = "Photo must not exceed 255 characters")
+    @Size(max = 255, message = "Fotka nesmie presiahnuť 255 znakov")
     private String photo;
 
     @Column(name = "comment", columnDefinition = "TEXT COLLATE utf8mb4_slovak_ci")
-    @Size(max = 65500, message = "Comment must not exceed 65500 characters")
+    @Size(max = 65500, message = "Komentár nesmie presiahnuť 65500 znakov")
     private String comment;
 
     @Column(name = "created_at", nullable = false, updatable = false)

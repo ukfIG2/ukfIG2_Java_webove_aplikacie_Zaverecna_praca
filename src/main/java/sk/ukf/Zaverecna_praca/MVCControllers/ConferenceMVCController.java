@@ -62,20 +62,7 @@ public class ConferenceMVCController {
         // Get user from security context
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-        System.out.println("Username " + username);
         User user = userService.findUserByEmail(username);
-/////
-        if (user != null) {
-            // Print the user details
-            System.out.println("User details:");
-            System.out.println("Email: " + user.getEmail());
-            System.out.println("Role: " + user.getRole());  // Assuming User has getRole method
-            System.out.println("ID: " + user.getId());  // Assuming User has getId method
-
-        } else {
-            System.out.println("User not found!");
-        }
-        /////
 
         if (user != null) {
             // Add user's role to the model
@@ -87,10 +74,6 @@ public class ConferenceMVCController {
                 presentation.setAlreadyRegistered(alreadyRegistered);
             }));
         }
-
-        // For debugging purposes: Print the model context to the console
-        System.out.println("Model attributes: " + model.asMap());
-
         return "Public/ConferencesDetail";
     }
 

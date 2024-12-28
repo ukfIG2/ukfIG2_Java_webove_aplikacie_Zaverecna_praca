@@ -11,7 +11,7 @@
           crossorigin="anonymous">
     <style>
         .navbar {
-            background-color: #007bff; /* Bootstrap primary blue */
+            background-color: #007bff; /* Bootstrap modrá farba */
         }
         .navbar .navbar-brand {
             color: white;
@@ -19,7 +19,7 @@
             font-weight: bold;
         }
         .navbar .navbar-brand:hover {
-            color: #e2e6ea; /* Lighter shade of white */
+            color: #e2e6ea; /* Svetlejší odtieň bielej */
         }
         .navbar .btn {
             margin-left: 0.5rem;
@@ -37,32 +37,33 @@
         <div class="container">
             <a class="navbar-brand" href="/MVC/conferences">Plánovač konferencií</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Prepnúť navigáciu">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
 
-                    <!-- Show user role as text -->
-                    <span class="role-text" sec:authorize="hasRole('admin')">Role: Admin</span>
-                    <span class="role-text" sec:authorize="hasRole('speaker')">Role: Speaker</span>
-                    <span class="role-text" sec:authorize="hasRole('registered_visitor')">Role: Registered Visitor</span>
-                    <span class="role-text" sec:authorize="isAnonymous()">Guest</span>
-                    <!-- Login Button -->
+                    <!-- Zobrazenie role používateľa -->
+                    <span class="role-text" sec:authorize="hasRole('admin')">Rola: Administrátor</span>
+                    <span class="role-text" sec:authorize="hasRole('speaker')">Rola: Prednášateľ</span>
+                    <span class="role-text" sec:authorize="hasRole('registered_visitor')">Rola: Registrovaný návštevník</span>
+                    <span class="role-text" sec:authorize="isAnonymous()">Hosť</span>
+
+                    <!-- Tlačidlo Prihlásenie -->
                     <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a href="/login" class="btn btn-outline-light">Login</a>
+                        <a href="/login" class="btn btn-outline-light">Prihlásenie</a>
                     </li>
 
-                    <!-- Register Button -->
+                    <!-- Tlačidlo Registrácia -->
                     <li class="nav-item" sec:authorize="isAnonymous()">
-                        <a href="/register" class="btn btn-light">Register</a>
+                        <a href="/register" class="btn btn-light">Registrácia</a>
                     </li>
 
-                    <!-- Logout Button -->
+                    <!-- Tlačidlo Odhlásenie -->
                     <li class="nav-item" sec:authorize="isAuthenticated()">
                         <form th:action="@{/logout}" method="post" class="d-inline">
-                            <button type="submit" class="btn btn-danger">Logout</button>
+                            <button type="submit" class="btn btn-danger">Odhlásenie</button>
                         </form>
                     </li>
                 </ul>

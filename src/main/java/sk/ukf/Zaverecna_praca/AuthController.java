@@ -74,7 +74,7 @@ public class AuthController {
         // Accumulate errors in BindingResult
         if (isShort || !hasUppercase || !hasLowercase || !hasNumber || !matchesRegex) {
             result.rejectValue("password", "error.user",
-                    "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, and one number.");
+                    "Heslo musí mať aspoň 8 znakov, obsahovať aspoň jedno veľké písmeno, jedno malé písmeno a jednu číslicu.");
             System.out.println("Password validation failed. Issues found.");
         }
         else{System.out.println("Password validation passed");}

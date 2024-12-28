@@ -65,9 +65,6 @@ public class ConferenceService {
 
         for (Object[] row : results) {
             // Extract row data
-
-            System.out.println(Arrays.toString(row));
-
             Long conferenceIdFromRow = ((Number) row[0]).longValue();
             String conferenceName = (String) row[1];
             java.sql.Date sqlDate = (java.sql.Date) row[2];
