@@ -33,7 +33,6 @@ public class Admin_StageMVCController {
     public String showCreateForm(Model model) {
         model.addAttribute("stage", new Stage());
         model.addAttribute("conferences", conferenceService.findAll());
-        System.out.println(conferenceService.findAll());
         return "Admin/Stages/AdminStageCreate";
     }
 

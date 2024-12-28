@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragraments/header :: head"></head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+<header th:replace="Admin/AdminHeader :: navbar"></header>
+
+<div class="container mt-4">
+    <h1>Update Presentation</h1>
+    <form th:action="@{/MVC/admin/presentations/update/{id}(id=${presentation.id})}" th:object="${presentation}" method="post">
+        <div class="mb-3">
+            <label for="nameOfPresentation" class="form-label">Presentation Name</label>
+            <input type="text" th:field="*{nameOfPresentation}" class="form-control" id="nameOfPresentation" required>
+        </div>
+        <div class="mb-3">
+            <label for="startAt" class="form-label">Start Time</label>
+            <input type="time" th:field="*{startAt}" class="form-control" id="startAt" required>
+        </div>
+        <div class="mb-3">
+            <label for="endAt" class="form-label">End Time</label>
+            <input type="time" th:field="*{endAt}" class="form-control" id="endAt" required>
+        </div>
+        <div class="mb-3">
+            <label for="shortDescription" class="form-label">Short Description</label>
+            <input type="text" th:field="*{shortDescription}" class="form-control" id="shortDescription" maxlength="255">
+        </div>
+        <div class="mb-3">
+            <label for="longDescription" class="form-label">Long Description</label>
+            <textarea th:field="*{longDescription}" class="form-control" id="longDescription" maxlength="65500"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="capacity" class="form-label">Capacity</label>
+            <input type="number" th:field="*{capacity}" class="form-control" id="capacity" required>
+        </div>
+        <div class="mb-3">
+            <label for="stage" class="form-label">Stage</label>
+            <select th:field="*{stage.id}" class="form-control" id="stage" required>
+                <option th:each="stage : ${stages}"
+                        th:value="${stage.id}"
+                        th:text="${stage.nameOfStage + ' - ' + stage.conference.nameOfConference}"
+                        th:selected="${stage.id == presentation.stage?.id}">
+                </option>
+
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="comment" class="form-label">Comment</label>
+            <textarea th:field="*{comment}" class="form-control" id="comment"></textarea>
+        </div>
+        <div class="d-flex justify-content-between">
+            <a href="/MVC/admin/presentations" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

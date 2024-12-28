@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragraments/header :: head"></head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+<header th:replace="Admin/AdminHeader :: navbar"></header>
+
+<div class="container mt-4">
+    <h1>All Presentations</h1>
+    <a href="/MVC/admin/presentations/create" class="btn btn-primary mb-3">Create New Presentation</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Stage</th>
+            <th>Conference</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Long Description</th>
+            <th>Comment</th>
+            <th>Actions</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="presentation : ${presentations}">
+            <td th:text="${presentation.id}"></td>
+            <td th:text="${presentation.nameOfPresentation}"></td>
+            <td th:text="${presentation.stage.nameOfStage}"></td>
+            <td th:text="${presentation.stage.conference.nameOfConference}"></td>
+            <td th:text="${presentation.startAt}"></td>
+            <td th:text="${presentation.endAt}"></td>
+            <td th:text="${presentation.longDescription}"></td>
+            <td th:text="${presentation.comment}"></td>
+            <td>
+                <a th:href="@{'/MVC/admin/presentations/update/' + ${presentation.id}}" class="btn btn-warning btn-sm">Edit</a>
+                <a th:href="@{'/MVC/admin/presentations/delete/' + ${presentation.id}}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
