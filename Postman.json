@@ -1,0 +1,1106 @@
+{
+	"info": {
+		"_postman_id": "c49f3ff6-4d6d-4f9e-9054-132b03665139",
+		"name": "Zaverecna_praca_JAVA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33371635"
+	},
+	"item": [
+		{
+			"name": "REST",
+			"item": [
+				{
+					"name": "Conference",
+					"item": [
+						{
+							"name": "http://localhost:8080/api/conferences",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/conferences",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"conferences"
+									]
+								},
+								"description": "Zobrazi vsetky konferencie"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/api/conferences/6",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/conferences/19",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"conferences",
+										"19"
+									]
+								},
+								"description": "Ukaze jednu vec"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/api/conferences",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nameOfConference\": \"Example Conference\",\n  \"dateOfConference\": \"2022-12-31\",\n  \"comment\": \"This is an example conference.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/conferences",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"conferences"
+									]
+								},
+								"description": "Vytvory novy zaznam"
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/api/conferences/10",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nameOfConference\": \"Conference example\",\n  \"dateOfConference\": \"2020-05-06\",\n  \"comment\": \"TSomething somehting\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/conferences/23",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"conferences",
+										"23"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/api/conferences/7",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/conferences/23",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"conferences",
+										"23"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/conferences/24/details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/conferences/24/details",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"conferences",
+										"24",
+										"details"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Note",
+					"item": [
+						{
+							"name": "http://localhost:8080/api/notes",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/notes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"notes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/api/notes/1",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/notes/7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"notes",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/api/notes",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nameOfNote\": \"Example Note\",\n  \"note\": \"This is an example note.\",\n  \"conference\": {\n    \"id\": 25\n  }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/notes",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"notes"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/api/notes/4",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nameOfNote\": \"Updated Example Note\",\n  \"note\": \"This is an updated example note.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/notes/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"notes",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/api/notes/4",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/notes/7",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"notes",
+										"7"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Sponsor",
+					"item": [
+						{
+							"name": "http://localhost:8080/api/sponsors",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/sponsors",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"sponsors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/api/sponsors/1",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/sponsors/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"sponsors",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/api/sponsors",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameOfSponsor\": \"Tech Corp\",\n    \"url\": \"https://www.techcorp.com\",\n    \"image\": \"https://www.techcorp.com/logo.png\",\n    \"comment\": \"Leading sponsor for the tech conference.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/sponsors",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"sponsors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/api/sponsors",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameOfSponsor\": \"Tech Corp Updated\",\n    \"url\": \"https://www.techcorp.com/updated\",\n    \"image\": \"https://www.techcorp.com/logo_updated.png\",\n    \"comment\": \"Updated comment for the leading sponsor.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/sponsors/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"sponsors",
+										"6"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "http://localhost:8080/api/sponsors",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"nameOfSponsor\": \"Tnieco.\",\n  \"url\": \"https://techinnieco\",\n  \"image\": \"https://nieco.com/logo.png\",\n  \"comment\": \"Leadniecovation conferences.\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/sponsors/6",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"sponsors",
+										"6"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Stage",
+					"item": [
+						{
+							"name": "localhost:8080/api/stages",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/stages",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"stages"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/stages/1",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/stages/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"stages",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/stages/1",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameOfStage\": \"Main Stage\",\n    \"comment\": \"This is the main stage for the conference.\",\n    \"conference\": {\n        \"id\": 25\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/stages",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"stages"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/stages/1",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameOfStage\": \"Updated Main Stage\",\n    \"comment\": \"Updated comment for the main stage.\",\n    \"conference\": {\n        \"id\": 24 //id must be here\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/stages/7",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"stages",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/stages/1",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/stages/10",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"stages",
+										"10"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Presentation",
+					"item": [
+						{
+							"name": "localhost:8080/api/stages",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/presentations",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"presentations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/stages",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/presentations/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"presentations",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/presentations",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameOfPresentation\": \"Introduction to AI\",\n    \"startAt\": \"09:00:00\",\n    \"endAt\": \"10:00:00\",\n    \"shortDescription\": \"An overview of AI technologies.\",\n    \"longDescription\": \"This presentation will cover the basics of artificial intelligence, including machine learning, neural networks, and more.\",\n    \"capacity\": 100,\n    \"stage\": {\n        \"id\": 11\n    },\n    \"comment\": \"This is a keynote presentation.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/presentations",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"presentations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/presentations/4",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"nameOfPresentation\": \"Advanced AI Techniques\",\n    \"startAt\": \"10:00:00\",\n    \"endAt\": \"11:00:00\",\n    \"shortDescription\": \"Deep dive into AI.\",\n    \"longDescription\": \"This presentation will explore advanced topics in artificial intelligence, including deep learning, reinforcement learning, and more.\",\n    \"capacity\": 150,\n    \"stage\": {\n        \"id\": 11\n    },\n    \"comment\": \"Updated keynote presentation.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/presentations/11",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"presentations",
+										"11"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/presentations/4",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/presentations/10",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"presentations",
+										"10"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "localhost:8080/api/users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/users",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/users/2",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/users/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/users",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"john.doe11@example.com\",\n    \"password\": \"Password123\",\n    \"titleBeforeName\": \"Dr.\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"titleAfterName\": \"PhD\",\n    \"phoneNumber\": \"+1234567890\",\n    \"photo\": \"https://example.com/photo.jpg\",\n    \"comment\": \"This is a comment.\"/*,\n    \"role\": \"ROLE_speaker\"*/\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/users",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/users/2",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"john.doe11@example.com\",\n    \"password\": \"NewPassword123\",\n    \"titleBeforeName\": \"Prof.\",\n    \"firstName\": \"John\",\n    \"lastName\": \"Doe\",\n    \"titleAfterName\": \"PhD\",\n    \"phoneNumber\": \"+1234567890\",\n    \"photo\": \"https://example.com/newphoto.jpg\",\n    \"comment\": \"Updated comment.\",\n    \"role\": \"ROLE_registered_visitor\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/users/11",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"11"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/users/2",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/users/9",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"9"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Relationship",
+					"item": [
+						{
+							"name": "localhost:8080/api/relationships/add",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\" : 5,\n    \"presentationId\" : 8\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/relationships/add",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"relationships",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/relationships/delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\" : 5,\n    \"presentationId\" : 8\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/relationships/delete",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"relationships",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/presentation_has_participants",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/presentation_has_participants",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"presentation_has_participants"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/presentation_has_participants/2",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/presentation_has_participants/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"presentation_has_participants",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/presentations_has_speakers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/presentations_has_speakers",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"presentations_has_speakers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/presentations_has_speakers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/presentations_has_speakers/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"presentations_has_speakers",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Relationship2",
+					"item": [
+						{
+							"name": "localhost:8080/api/relationships2",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/relationships2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"relationships2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/relationships2",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/relationships2/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"relationships2",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/relationships2",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"sponsor\": {\n        \"id\": 8\n    },\n    \"conference\": {\n        \"id\": 25\n    },\n    \"comment\": \"This sponsor is supporting the conference.\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/relationships2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"relationships2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/relationships2/7",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"comment\": \"Updated comment for the sponsor-conference relationship.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/relationships2/3",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"relationships2",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "localhost:8080/api/relationships2/7",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/relationships2/2",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"relationships2",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "MVC",
+			"item": [
+				{
+					"name": "http://localhost:8080/MVC/conferences",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/MVC/conferences",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"MVC",
+								"conferences"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:8080/MVC/conferences/24",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/MVC/conferences/24",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"MVC",
+								"conferences",
+								"24"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
