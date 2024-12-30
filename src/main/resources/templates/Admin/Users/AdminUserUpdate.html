@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragraments/header :: head"></head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+<header th:replace="Admin/AdminHeader :: navbar"></header>
+<div class="container mt-4">
+  <h1>Update User</h1>
+  <form th:action="@{/MVC/admin/users/update/{id}(id=${user.id})}" th:object="${user}" method="post">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" th:field="*{email}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" th:field="*{firstName}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" th:field="*{lastName}" class="form-control" required>
+    </div>
+    <!-- Add other fields here -->
+    <button type="submit" class="btn btn-primary">Update</button>
+  </form>
+</div>
+</body>
+</html>

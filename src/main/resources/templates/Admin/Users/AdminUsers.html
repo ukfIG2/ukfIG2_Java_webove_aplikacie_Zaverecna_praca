@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragraments/header :: head"></head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+<header th:replace="Admin/AdminHeader :: navbar"></header>
+<div class="container mt-4">
+  <h1>All Users</h1>
+  <a href="/MVC/admin/users/create" class="btn btn-primary mb-3">Create New User</a>
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Email</th>
+      <th>Title Before Name</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Title After Name</th>
+      <th>Phone Number</th>
+      <th>Role</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.id}"></td>
+      <td th:text="${user.email}"></td>
+      <td th:text="${user.titleBeforeName}"></td>
+      <td th:text="${user.firstName}"></td>
+      <td th:text="${user.lastName}"></td>
+      <td th:text="${user.titleAfterName}"></td>
+      <td th:text="${user.phoneNumber}"></td>
+      <td th:text="${user.role}"></td>
+      <td>
+        <!--<a th:href="@{'/MVC/admin/users/update/' + ${user.id}}" class="btn btn-warning btn-sm">Edit</a>-->
+        <a th:href="@{'/MVC/admin/users/delete/' + ${user.id}}" class="btn btn-danger btn-sm">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
