@@ -6,25 +6,25 @@
 <header th:replace="Admin/AdminHeader :: navbar"></header>
 
 <div class="container mt-4">
-    <h1>Update Sponsor</h1>
+    <h1>Upraviť Sponzora</h1>
     <form th:action="@{/MVC/admin/sponsors/update/{id}(id=${sponsor.id})}" method="post">
         <div class="mb-3">
-            <label for="nameOfSponsor" class="form-label">Sponsor Name</label>
+            <label for="nameOfSponsor" class="form-label">Meno Sponzora</label>
             <input type="text" id="nameOfSponsor" name="nameOfSponsor" class="form-control" required th:field="*{sponsor.nameOfSponsor}">
         </div>
         <div class="mb-3">
-            <label for="url" class="form-label">Sponsor URL</label>
+            <label for="url" class="form-label">URL Sponzora</label>
             <input type="url" id="url" name="url" class="form-control" required th:field="*{sponsor.url}">
         </div>
         <div class="mb-3">
-            <label for="image" class="form-label">Image URL</label>
+            <label for="image" class="form-label">URL Obrázka</label>
             <input type="text" id="image" name="image" class="form-control" required th:field="*{sponsor.image}">
         </div>
         <div class="mb-3">
-            <label for="comment" class="form-label">Comment</label>
+            <label for="comment" class="form-label">Komentár</label>
             <textarea id="comment" name="comment" class="form-control" th:field="*{sponsor.comment}"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Update Sponsor</button>
+        <button type="submit" class="btn btn-primary">Aktualizovať Sponzora</button>
     </form>
 </div>
 </body>

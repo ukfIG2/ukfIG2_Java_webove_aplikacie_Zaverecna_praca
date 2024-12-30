@@ -6,28 +6,32 @@
 <header th:replace="Admin/AdminHeader :: navbar"></header>
 
 <div class="container mt-4">
-  <h1>Sponsor-Conference Relationships</h1>
-  <a href="/MVC/admin/sponsorshasconferences/create" class="btn btn-success mb-3">Add New Relationship</a>
-  <table class="table table-bordered">
+  <h1>Vzťahy medzi Sponzormi a Konferenciami</h1>
+  <a href="/MVC/admin/sponsorshasconferences/create" class="btn btn-success mb-3">Pridať Nový Vzťah</a>
+  <table class="table table-bordered table-striped">
     <thead>
     <tr>
       <th>ID</th>
-      <th>Conference</th>
-      <th>Sponsor</th>
-      <th>Comment</th>
-      <th>Actions</th>
+      <th>Konferencia</th>
+      <th>Sponzor</th>
+      <th>Komentár</th>
+      <th>Vytvorené</th>
+      <th>Upravené</th>
+      <th>Akcie</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="relationship : ${sponsorHasConferences}">
       <td th:text="${relationship.id}"></td>
-      <td th:text="${relationship.conference.nameOfConference}"></td>
-      <td th:text="${relationship.sponsor.nameOfSponsor}"></td>
+      <td th:text="${relationship.conference.id + '. ' +relationship.conference.nameOfConference}"></td>
+      <td th:text="${relationship.sponsor.id + '. ' + relationship.sponsor.nameOfSponsor}"></td>
       <td th:text="${relationship.comment}"></td>
+      <td th:text="${#temporals.format(relationship.createdAt, 'yyyy.MM.dd HH:mm:ss')}"></td>
+      <td th:text="${#temporals.format(relationship.updatedAt, 'yyyy.MM.dd HH:mm:ss')}"></td>
       <td>
-        <a th:href="@{/MVC/admin/sponsorshasconferences/update/{id}(id=${relationship.id})}" class="btn btn-primary btn-sm">Edit</a>
+        <a th:href="@{/MVC/admin/sponsorshasconferences/update/{id}(id=${relationship.id})}" class="btn btn-primary btn-sm">Upraviť</a>
         <form th:action="@{/MVC/admin/sponsorshasconferences/delete/{id}(id=${relationship.id})}" method="post" style="display:inline;">
-          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+          <button type="submit" class="btn btn-danger btn-sm">Odstrániť</button>
         </form>
       </td>
     </tr>

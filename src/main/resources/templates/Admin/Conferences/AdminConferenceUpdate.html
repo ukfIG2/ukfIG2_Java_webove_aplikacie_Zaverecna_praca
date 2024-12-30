@@ -5,35 +5,38 @@
 <header th:replace="fragraments/header :: header"></header>
 <header th:replace="Admin/AdminHeader :: navbar"></header>
 
-
 <div class="container mt-4">
-  <h1>Update Conference</h1>
+  <h1>Aktualizovať konferenciu</h1>
   <form th:action="@{'/MVC/admin/conferences/update/' + ${conference.id}}" th:object="${conference}" method="post">
     <div class="mb-3">
-      <label for="nameOfConference" class="form-label">Conference Name</label>
+      <label for="nameOfConference" class="form-label">Názov konferencie</label>
       <input type="text" th:field="*{nameOfConference}" class="form-control" id="nameOfConference" required>
     </div>
     <div class="mb-3">
-      <label for="dateOfConference" class="form-label">Date</label>
-      <input type="date" th:field="*{dateOfConference}" class="form-control" id="dateOfConference" required>
+      <label for="dateOfConference" class="form-label">Dátum</label>
+      <!-- Tu sa používa th:value, aby sa naplnil správny dátum vo formáte yyyy-MM-dd -->
+      <input type="date" th:field="*{dateOfConference}" class="form-control" id="dateOfConference" required
+             th:value="${conference.dateOfConference}">
     </div>
     <div class="mb-3">
-      <label for="stateOfConference" class="form-label">State</label>
+      <label for="stateOfConference" class="form-label">Stav</label>
       <select th:field="*{stateOfConference}" class="form-control" id="stateOfConference" required>
-        <option value="PREPARING">Preparing</option>
-        <option value="REGISTERING">Registering</option>
-        <option value="REGISTERING_ENDED">Registering Ended</option>
-        <option value="ENDED">Ended</option>
+        <option value="PREPARING" th:selected="${conference.stateOfConference == 'PREPARING'}">Príprava</option>
+        <option value="REGISTERING" th:selected="${conference.stateOfConference == 'REGISTERING'}">Registrácia</option>
+        <option value="REGISTERING_ENDED" th:selected="${conference.stateOfConference == 'REGISTERING_ENDED'}">Registrácia skončená</option>
+        <option value="ENDED" th:selected="${conference.stateOfConference == 'ENDED'}">Ukončené</option>
       </select>
     </div>
     <div class="mb-3">
-      <label for="comment" class="form-label">Comment</label>
+      <label for="comment" class="form-label">Komentár</label>
       <textarea th:field="*{comment}" class="form-control" id="comment"></textarea>
     </div>
     <div class="d-flex justify-content-between">
-      <a href="/MVC/admin/conferences" class="btn btn-secondary">Cancel</a>
-      <button type="submit" class="btn btn-primary">Update</button> <!-- Or "Create" in the create template -->
-    </div>  </form>
+      <a href="/MVC/admin/conferences" class="btn btn-secondary">Zrušiť</a>
+      <button type="submit" class="btn btn-primary">Aktualizovať</button>
+    </div>
+  </form>
 </div>
+
 </body>
 </html>

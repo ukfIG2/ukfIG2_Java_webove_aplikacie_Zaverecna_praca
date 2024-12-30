@@ -6,10 +6,10 @@
 <header th:replace="Admin/AdminHeader :: navbar"></header>
 
 <div class="container mt-4">
-    <h1>Create Sponsor-Conference Relationship</h1>
+    <h1>Vytvorenie Vzťahu medzi Sponzorom a Konferenciou</h1>
     <form th:action="@{/MVC/admin/sponsorshasconferences/create}" method="post">
         <div class="mb-3">
-            <label for="conference" class="form-label">Conference</label>
+            <label for="conference" class="form-label">Konferencia</label>
             <select id="conference" name="conference.id" class="form-select" required>
                 <option th:each="conference : ${conferences}"
                         th:value="${conference.id}"
@@ -17,7 +17,7 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="sponsor" class="form-label">Sponsor</label>
+            <label for="sponsor" class="form-label">Sponzor</label>
             <select id="sponsor" name="sponsor.id" class="form-select" required>
                 <option th:each="sponsor : ${sponsors}"
                         th:value="${sponsor.id}"
@@ -25,10 +25,10 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="comment" class="form-label">Comment</label>
+            <label for="comment" class="form-label">Komentár</label>
             <textarea id="comment" name="comment" class="form-control"></textarea>
         </div>
-        <button type="submit" class="btn btn-success">Save Relationship</button>
+        <button type="submit" class="btn btn-success">Uložiť vzťah</button>
     </form>
 </div>
 </body>

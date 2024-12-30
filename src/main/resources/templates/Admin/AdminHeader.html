@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head">
+<head th:replace="fragraments/header :: head">
     <style>
-        /* Custom styling for the active button */
+        /* Vlastný štýl pre aktívne tlačidlo */
         .btn-outline-primary.active {
             background-color: red;
             color: white;
@@ -14,31 +14,30 @@
 <th:block th:fragment="navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <!-- Button group for navigation -->
-            <div class="btn-group" role="group" aria-label="Navigation">
-                <a href="/MVC/admin/conferences" class="btn btn-outline-primary" id="conferences-link">Conferences</a>
-                <a href="/MVC/admin/stages" class="btn btn-outline-primary" id="stages-link">Stages</a>
-                <a href="/MVC/admin/presentations" class="btn btn-outline-primary" id="presentations-link">Presentations</a>
-                <a href="/MVC/admin/sponsors" class="btn btn-outline-primary" id="sponsors-link">Sponsors</a>
-                <a href="/MVC/admin/sponsorshasconferences" class="btn btn-outline-primary" id="speakers-link">Sponsor Has Conferences</a>
-                <a href="/MVC/admin/users" class="btn btn-outline-primary" id="users-link">Users</a>
-                <a href="/MVC/admin/presentationhasparticipants" class="btn btn-outline-primary" id="presentationhasparticipants-link">presentationhasparticipants</a>
-                <a href="/MVC/admin/presentationhasspeakers" class="btn btn-outline-primary" id="PresentationHasSpeakers-link">PresentationHasSpeakers</a>
-
+            <!-- Skupina tlačidiel pre navigáciu -->
+            <div class="btn-group" role="group" aria-label="Navigácia">
+                <a href="/MVC/admin/conferences" class="btn btn-outline-primary" id="conferences-link">Konferencie</a>
+                <a href="/MVC/admin/stages" class="btn btn-outline-primary" id="stages-link">Scény</a>
+                <a href="/MVC/admin/presentations" class="btn btn-outline-primary" id="presentations-link">Prezentácie</a>
+                <a href="/MVC/admin/sponsors" class="btn btn-outline-primary" id="sponsors-link">Sponzori</a>
+                <a href="/MVC/admin/sponsorshasconferences" class="btn btn-outline-primary" id="speakers-link">Sponzori a konferencie</a>
+                <a href="/MVC/admin/users" class="btn btn-outline-primary" id="users-link">Užívatelia</a>
+                <a href="/MVC/admin/presentationhasparticipants" class="btn btn-outline-primary" id="presentationhasparticipants-link">Prezentácie a účastníci</a>
+                <a href="/MVC/admin/presentationhasspeakers" class="btn btn-outline-primary" id="PresentationHasSpeakers-link">Prezentácie a prednášajúci</a>
             </div>
         </div>
     </nav>
 </th:block>
 
 <script>
-    // Get the current URL path
+    // Získame aktuálnu URL cestu
     const currentPath = window.location.pathname;
 
-    // Remove 'active' class from all navigation links
+    // Odstránime 'active' triedu zo všetkých navigačných odkazov
     const links = document.querySelectorAll('.btn-outline-primary');
     links.forEach(link => link.classList.remove('active'));
 
-    // Add the 'active' class to the link that corresponds to the current page
+    // Pridáme 'active' triedu k odkazu, ktorý zodpovedá aktuálnej stránke
     if (currentPath === '/MVC/admin/conferences') {
         document.getElementById('conferences-link').classList.add('active');
     } else if (currentPath === '/MVC/admin/stages') {

@@ -6,21 +6,21 @@
 <header th:replace="Admin/AdminHeader :: navbar"></header>
 
 <div class="container mt-4">
-  <h1>Update Sponsor-Conference Relationship</h1>
+  <h1>Aktualizácia Vzťahu medzi Sponzorom a Konferenciou</h1>
   <form th:action="@{/MVC/admin/sponsorshasconferences/update/{id}(id=${sponsorHasConference.id})}" method="post">
     <div class="mb-3">
-      <label for="conference" class="form-label">Conference</label>
+      <label for="conference" class="form-label">Konferencia</label>
       <input type="text" id="conference" class="form-control" readonly th:value="${sponsorHasConference.conference.nameOfConference}">
     </div>
     <div class="mb-3">
-      <label for="sponsor" class="form-label">Sponsor</label>
+      <label for="sponsor" class="form-label">Sponzor</label>
       <input type="text" id="sponsor" class="form-control" readonly th:value="${sponsorHasConference.sponsor.nameOfSponsor}">
     </div>
     <div class="mb-3">
-      <label for="comment" class="form-label">Comment</label>
+      <label for="comment" class="form-label">Komentár</label>
       <textarea id="comment" name="comment" class="form-control" th:field="*{sponsorHasConference.comment}"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Update Relationship</button>
+    <button type="submit" class="btn btn-primary">Aktualizovať vzťah</button>
   </form>
 </div>
 </body>

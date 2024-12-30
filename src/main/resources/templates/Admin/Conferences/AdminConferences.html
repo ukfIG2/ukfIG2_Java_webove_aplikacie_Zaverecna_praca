@@ -5,29 +5,33 @@
 <header th:replace="fragraments/header :: header"></header>
 <header th:replace="Admin/AdminHeader :: navbar"></header>
 <div class="container mt-4">
-    <h1>All Conferences</h1>
-    <a href="/MVC/admin/conferences/create" class="btn btn-primary mb-3">Create New Conference</a>
+    <h1>Všetky konferencie</h1>
+    <a href="/MVC/admin/conferences/create" class="btn btn-primary mb-3">Vytvoriť novú konferenciu</a>
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Date</th>
-            <th>State</th>
-            <th>Comment</th>
-            <th>Actions</th>
+            <th>Názov</th>
+            <th>Dátum</th>
+            <th>Stav</th>
+            <th>Komentár</th>
+            <th>Vytvorené</th>
+            <th>Upravené</th>
+            <th>Akcie</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="conference : ${conferences}">
             <td th:text="${conference.id}"></td>
             <td th:text="${conference.nameOfConference}"></td>
-            <td th:text="${conference.dateOfConference}"></td>
-            <td th:text="${conference.stateOfConference}"></td>
+            <td th:text="${#temporals.format(conference.dateOfConference, 'yyyy.MM.dd')}"></td>            <td th:text="${conference.stateOfConference}"></td>
             <td th:text="${conference.comment}"></td>
+            <!-- Používame #temporals.format() na formátovanie LocalDateTime -->
+            <td th:text="${#temporals.format(conference.createdAt, 'yyyy.MM.dd HH:mm:ss')}"></td>
+            <td th:text="${#temporals.format(conference.updatedAt, 'yyyy.MM.dd HH:mm:ss')}"></td>
             <td>
-                <a th:href="@{'/MVC/admin/conferences/update/' + ${conference.id}}" class="btn btn-warning btn-sm">Edit</a>
-                <a th:href="@{'/MVC/admin/conferences/delete/' + ${conference.id}}" class="btn btn-danger btn-sm">Delete</a>
+                <a th:href="@{'/MVC/admin/conferences/update/' + ${conference.id}}" class="btn btn-warning btn-sm">Upraviť</a>
+                <a th:href="@{'/MVC/admin/conferences/delete/' + ${conference.id}}" class="btn btn-danger btn-sm">Vymazať</a>
             </td>
         </tr>
         </tbody>

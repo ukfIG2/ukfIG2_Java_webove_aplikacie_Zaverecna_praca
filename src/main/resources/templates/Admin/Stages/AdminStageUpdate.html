@@ -5,28 +5,27 @@
 <header th:replace="fragraments/header :: header"></header>
 <header th:replace="Admin/AdminHeader :: navbar"></header>
 
-
 <div class="container mt-4">
-  <h1>Update Stage</h1>
+  <h1>Upraviť Scénu</h1>
   <form th:action="@{/MVC/admin/stages/update/{id}(id=${stage.id})}" method="post">
     <div class="mb-3">
-      <label for="nameOfStage" class="form-label">Stage Name</label>
+      <label for="nameOfStage" class="form-label">Názov Scény</label>
       <input type="text" id="nameOfStage" name="nameOfStage" class="form-control" required
              th:field="*{stage.nameOfStage}">
     </div>
     <div class="mb-3">
-      <label for="comment" class="form-label">Comment</label>
+      <label for="comment" class="form-label">Komentár</label>
       <textarea id="comment" name="comment" class="form-control" th:field="*{stage.comment}"></textarea>
     </div>
     <div class="mb-3">
-      <label for="conference" class="form-label">Conference</label>
+      <label for="conference" class="form-label">Konferencia</label>
       <select id="conference" name="conference.id" class="form-select" required th:field="*{stage.conference.id}">
         <option th:each="conference : ${conferences}" th:value="${conference.id}"
                 th:text="${conference.nameOfConference}"
                 th:selected="${conference.id == stage.conference.id}"></option>
       </select>
     </div>
-    <button type="submit" class="btn btn-success">Update Stage</button>
+    <button type="submit" class="btn btn-success">Upraviť Scénu</button>
   </form>
 </div>
 </body>

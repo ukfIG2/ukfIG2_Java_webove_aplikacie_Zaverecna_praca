@@ -6,34 +6,30 @@
 <header th:replace="Admin/AdminHeader :: navbar"></header>
 
 <div class="container mt-4">
-    <h1>Create New Presentation</h1>
+    <h1>Vytvoriť Novú Prezentáciu</h1>
     <form th:action="@{/MVC/admin/presentations/create}" th:object="${presentation}" method="post">
         <div class="mb-3">
-            <label for="nameOfPresentation" class="form-label">Presentation Name</label>
+            <label for="nameOfPresentation" class="form-label">Názov Prezentácie</label>
             <input type="text" th:field="*{nameOfPresentation}" class="form-control" id="nameOfPresentation" required>
         </div>
         <div class="mb-3">
-            <label for="startAt" class="form-label">Start Time</label>
+            <label for="startAt" class="form-label">Čas Začiatku</label>
             <input type="time" th:field="*{startAt}" class="form-control" id="startAt" required>
         </div>
         <div class="mb-3">
-            <label for="endAt" class="form-label">End Time</label>
+            <label for="endAt" class="form-label">Čas Konca</label>
             <input type="time" th:field="*{endAt}" class="form-control" id="endAt" required>
         </div>
         <div class="mb-3">
-            <label for="shortDescription" class="form-label">Short Description</label>
-            <input type="text" th:field="*{shortDescription}" class="form-control" id="shortDescription" maxlength="255">
-        </div>
-        <div class="mb-3">
-            <label for="longDescription" class="form-label">Long Description</label>
+            <label for="longDescription" class="form-label">Dlhý Popis</label>
             <textarea th:field="*{longDescription}" class="form-control" id="longDescription" maxlength="65500"></textarea>
         </div>
         <div class="mb-3">
-            <label for="capacity" class="form-label">Capacity</label>
+            <label for="capacity" class="form-label">Kapacita</label>
             <input type="number" th:field="*{capacity}" class="form-control" id="capacity" required>
         </div>
         <div class="mb-3">
-            <label for="stage" class="form-label">Stage</label>
+            <label for="stage" class="form-label">Scéna</label>
             <select th:field="*{stage.id}" class="form-control" id="stage" required>
                 <option th:each="stage : ${stages}"
                         th:value="${stage.id}"
@@ -41,12 +37,12 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="comment" class="form-label">Comment</label>
+            <label for="comment" class="form-label">Komentár</label>
             <textarea th:field="*{comment}" class="form-control" id="comment"></textarea>
         </div>
         <div class="d-flex justify-content-between">
-            <a href="/MVC/admin/presentations" class="btn btn-secondary">Cancel</a>
-            <button type="submit" class="btn btn-primary">Create</button>
+            <a href="/MVC/admin/presentations" class="btn btn-secondary">Zrušiť</a>
+            <button type="submit" class="btn btn-primary">Vytvoriť</button>
         </div>
     </form>
 </div>

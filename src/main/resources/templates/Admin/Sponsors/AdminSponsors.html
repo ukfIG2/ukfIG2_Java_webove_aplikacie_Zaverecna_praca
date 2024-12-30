@@ -6,17 +6,19 @@
 <header th:replace="Admin/AdminHeader :: navbar"></header>
 
 <div class="container mt-4">
-    <h1>All Sponsors</h1>
-    <a href="/MVC/admin/sponsors/create" class="btn btn-success mb-3">Add New Sponsor</a>
-    <table class="table table-bordered">
+    <h1>Všetci Sponzori</h1>
+    <a href="/MVC/admin/sponsors/create" class="btn btn-primary mb-3">Pridať Nového Sponzora</a>
+    <table class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Name</th>
+            <th>Meno</th>
             <th>URL</th>
-            <th>Image</th>
-            <th>Comment</th>
-            <th>Actions</th>
+            <th>Obrázok</th>
+            <th>Komentár</th>
+            <th>Vytvorené</th>
+            <th>Upravené</th>
+            <th>Akcie</th>
         </tr>
         </thead>
         <tbody>
@@ -24,12 +26,16 @@
             <td th:text="${sponsor.id}"></td>
             <td th:text="${sponsor.nameOfSponsor}"></td>
             <td><a th:href="${sponsor.url}" th:text="${sponsor.url}" target="_blank"></a></td>
-            <td><img th:src="@{${sponsor.image}}" alt="Sponsor Image" class="img-thumbnail" style="width: 100px;"/></td>
-            <td th:text="${sponsor.comment}"></td>
             <td>
-                <a th:href="@{/MVC/admin/sponsors/update/{id}(id=${sponsor.id})}" class="btn btn-primary btn-sm">Edit</a>
+                <img th:src="@{${sponsor.image}}" alt="Obrázok sponzora" class="img-thumbnail" style="width: 100px; height: auto;">
+            </td>
+            <td th:text="${sponsor.comment}"></td>
+            <td th:text="${#temporals.format(sponsor.createdAt, 'yyyy.MM.dd HH:mm:ss')}"></td>
+            <td th:text="${#temporals.format(sponsor.updatedAt, 'yyyy.MM.dd HH:mm:ss')}"></td>
+            <td>
+                <a th:href="@{/MVC/admin/sponsors/update/{id}(id=${sponsor.id})}" class="btn btn-warning btn-sm">Upraviť</a>
                 <form th:action="@{/MVC/admin/sponsors/delete/{id}(id=${sponsor.id})}" method="post" style="display:inline;">
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    <button type="submit" class="btn btn-danger btn-sm">Odstrániť</button>
                 </form>
             </td>
         </tr>
