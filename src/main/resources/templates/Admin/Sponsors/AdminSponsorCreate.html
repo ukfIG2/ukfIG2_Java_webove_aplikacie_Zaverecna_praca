@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragraments/header :: head"></head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+<header th:replace="Admin/AdminHeader :: navbar"></header>
+
+<div class="container mt-4">
+    <h1>Create Sponsor</h1>
+    <form th:action="@{/MVC/admin/sponsors/create}" method="post">
+        <div class="mb-3">
+            <label for="nameOfSponsor" class="form-label">Sponsor Name</label>
+            <input type="text" id="nameOfSponsor" name="nameOfSponsor" class="form-control" required th:field="*{sponsor.nameOfSponsor}">
+        </div>
+        <div class="mb-3">
+            <label for="url" class="form-label">Sponsor URL</label>
+            <input type="url" id="url" name="url" class="form-control" required th:field="*{sponsor.url}">
+        </div>
+        <div class="mb-3">
+            <label for="image" class="form-label">Image URL</label>
+            <input type="text" id="image" name="image" class="form-control" required th:field="*{sponsor.image}">
+        </div>
+        <div class="mb-3">
+            <label for="comment" class="form-label">Comment</label>
+            <textarea id="comment" name="comment" class="form-control" th:field="*{sponsor.comment}"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Save Sponsor</button>
+    </form>
+</div>
+</body>
+</html>
