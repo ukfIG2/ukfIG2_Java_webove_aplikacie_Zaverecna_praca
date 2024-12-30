@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragraments/header :: head"></head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+<header th:replace="Admin/AdminHeader :: navbar"></header>
+
+<div class="container mt-4">
+    <h1>Create Sponsor-Conference Relationship</h1>
+    <form th:action="@{/MVC/admin/sponsorshasconferences/create}" method="post">
+        <div class="mb-3">
+            <label for="conference" class="form-label">Conference</label>
+            <select id="conference" name="conference.id" class="form-select" required>
+                <option th:each="conference : ${conferences}"
+                        th:value="${conference.id}"
+                        th:text="${conference.nameOfConference}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="sponsor" class="form-label">Sponsor</label>
+            <select id="sponsor" name="sponsor.id" class="form-select" required>
+                <option th:each="sponsor : ${sponsors}"
+                        th:value="${sponsor.id}"
+                        th:text="${sponsor.nameOfSponsor}"></option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="comment" class="form-label">Comment</label>
+            <textarea id="comment" name="comment" class="form-control"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Save Relationship</button>
+    </form>
+</div>
+</body>
+</html>

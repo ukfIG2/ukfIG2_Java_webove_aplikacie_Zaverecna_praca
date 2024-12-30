@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragraments/header :: head"></head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+<header th:replace="Admin/AdminHeader :: navbar"></header>
+
+<div class="container mt-4">
+  <h1>Sponsor-Conference Relationships</h1>
+  <a href="/MVC/admin/sponsorshasconferences/create" class="btn btn-success mb-3">Add New Relationship</a>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Conference</th>
+      <th>Sponsor</th>
+      <th>Comment</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="relationship : ${sponsorHasConferences}">
+      <td th:text="${relationship.id}"></td>
+      <td th:text="${relationship.conference.nameOfConference}"></td>
+      <td th:text="${relationship.sponsor.nameOfSponsor}"></td>
+      <td th:text="${relationship.comment}"></td>
+      <td>
+        <a th:href="@{/MVC/admin/sponsorshasconferences/update/{id}(id=${relationship.id})}" class="btn btn-primary btn-sm">Edit</a>
+        <form th:action="@{/MVC/admin/sponsorshasconferences/delete/{id}(id=${relationship.id})}" method="post" style="display:inline;">
+          <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
