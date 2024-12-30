@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragraments/header :: head"></head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+<header th:replace="Admin/AdminHeader :: navbar"></header>
+
+<div class="container mt-4">
+    <h1>All Speakers in Presentations</h1>
+    <a href="/MVC/admin/presentationhasspeakers/create" class="btn btn-primary mb-3">Add New Speaker</a>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Presentation Name</th>
+            <th>Stage Name</th>
+            <th>Conference Name</th>
+            <th>Speaker Name</th>
+            <th>Speaker Email</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="speaker : ${speakers}">
+            <td th:text="${speaker.id}"></td>
+            <td th:text="${speaker.presentation.nameOfPresentation}"></td>
+            <td th:text="${speaker.presentation.stage.nameOfStage}"></td>
+            <td th:text="${speaker.presentation.stage.conference.nameOfConference}"></td>
+            <td th:text="${speaker.user.firstName + ' ' + speaker.user.lastName}"></td>
+            <td th:text="${speaker.user.email}"></td>
+            <td th:text="${speaker.createdAt}"></td>
+            <td th:text="${speaker.updatedAt}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

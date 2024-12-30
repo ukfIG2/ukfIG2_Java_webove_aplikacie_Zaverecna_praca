@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragraments/header :: head"></head>
+<body>
+<header th:replace="fragraments/header :: header"></header>
+<header th:replace="Admin/AdminHeader :: navbar"></header>
+
+<div class="container mt-4">
+  <h1>Participants in Presentations</h1>
+  <!--<a href="/MVC/admin/presentationhasparticipants/create" class="btn btn-primary mb-3">Add New Participant</a>-->
+  <table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Conference Name</th>
+      <th>Stage Name</th>
+      <th>Presentation Name</th>
+      <th>Conference Date</th>
+      <th>Start At</th>
+      <th>End At</th>
+      <th>User ID</th>
+      <th>User Name</th>
+      <th>User Surname</th>
+      <th>User Email</th>
+      <!--<th>Actions</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="participant : ${participants}">
+      <td th:text="${participant.id}"></td>
+      <td th:text="${participant.presentation.stage.conference.nameOfConference}"></td>
+      <td th:text="${participant.presentation.stage.nameOfStage}"></td>
+      <td th:text="${participant.presentation.nameOfPresentation}"></td>
+      <td th:text="${participant.presentation.stage.conference.dateOfConference}"></td>
+      <td th:text="${participant.presentation.startAt}"></td>
+      <td th:text="${participant.presentation.endAt}"></td>
+      <td th:text="${participant.user.id}"></td>
+      <td th:text="${participant.user.firstName}"></td>
+      <td th:text="${participant.user.lastName}"></td>
+      <td th:text="${participant.user.email}"></td>
+      <!--<td>
+        <a th:href="@{'/MVC/admin/presentationhasparticipants/update/' + ${participant.id}}" class="btn btn-warning btn-sm">Edit</a>
+        <a th:href="@{'/MVC/admin/presentationhasparticipants/delete/' + ${participant.id}}" class="btn btn-danger btn-sm">Delete</a>
+      </td> -->
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
