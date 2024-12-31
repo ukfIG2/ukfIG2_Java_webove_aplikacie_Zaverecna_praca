@@ -8,6 +8,7 @@
 <div class="container mt-4">
     <h1>Všetky Prezentácie</h1>
     <a href="/MVC/admin/presentations/create" class="btn btn-primary mb-3">Vytvoriť Novú Prezentáciu</a>
+
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
@@ -26,9 +27,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="presentation : ${presentations}">
+        <tr th:each="presentation : ${presentationsPage.content}">
             <td th:text="${presentation.id}"></td>
-            <td th:text="${presentation.stage.conference.id + '. ' +presentation.stage.conference.nameOfConference}"></td>
+            <td th:text="${presentation.stage.conference.id + '. ' + presentation.stage.conference.nameOfConference}"></td>
             <td th:text="${presentation.stage.id + '. ' + presentation.stage.nameOfStage}"></td>
             <td th:text="${presentation.nameOfPresentation}"></td>
             <td th:text="${presentation.startAt}"></td>
@@ -45,6 +46,19 @@
         </tr>
         </tbody>
     </table>
+
+    <!-- Pagination Links -->
+    <div>
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a class="page-link" th:href="@{'/MVC/admin/presentations?page=' + ${currentPage - 1} + '&size=5'}">Previous</a>
+            </li>
+
+            <li class="page-item" th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                <a class="page-link" th:href="@{'/MVC/admin/presentations?page=' + ${currentPage + 1} + '&size=5'}">Next</a>
+            </li>
+        </ul>
+    </div>
 </div>
 </body>
 </html>

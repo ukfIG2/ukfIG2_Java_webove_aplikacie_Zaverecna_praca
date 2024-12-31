@@ -1,6 +1,9 @@
 package sk.ukf.Zaverecna_praca.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import sk.ukf.Zaverecna_praca.Entity.Presentation;
 import sk.ukf.Zaverecna_praca.Entity.Stage;
@@ -76,5 +79,11 @@ public class PresentationService {
 
     public void deleteById(Long id) {
         presentationRepository.deleteById(id);
+    }
+
+
+    public Page<Presentation> getPresentationsPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size); // Get the page with the given page number and size
+        return presentationRepository.findAll(pageable); // Return a Page object with the presentations
     }
 }

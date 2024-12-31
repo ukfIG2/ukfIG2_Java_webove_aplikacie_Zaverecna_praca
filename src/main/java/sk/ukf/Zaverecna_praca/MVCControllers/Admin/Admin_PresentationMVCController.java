@@ -1,6 +1,7 @@
 package sk.ukf.Zaverecna_praca.MVCControllers.Admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,12 +29,12 @@ public class Admin_PresentationMVCController {
     private ConferenceService conferenceService;
 
     // Show all presentations
-    @GetMapping
+   /* @GetMapping
     public String showAllPresentations(Model model) {
         List<Presentation> presentations = presentationService.getAllPresentations();
         model.addAttribute("presentations", presentations);
         return "Admin/Presentations/AdminPresentations";
-    }
+    }*/
 
     // Create a new presentation
     @GetMapping("/create")
@@ -93,5 +94,20 @@ public class Admin_PresentationMVCController {
     public String deletePresentation(@PathVariable("id") Long id) {
         presentationService.deleteById(id);
         return "redirect:/MVC/admin/presentations"; // redirect to the list after deleting
+    }
+
+    // Show paginated presentations
+    @GetMapping
+    public String showAllPresentations(
+            @RequestParam(defaultValue = "0") int page,  // Default to the first page (page 0)
+            @RequestParam(defaultValue = "5") int size, // Default to 5 presentations per page
+            Model model) {
+
+        Page<Presentation> presentationsPage = presentationService.getPresentationsPage(page, size);
+
+        model.addAttribute("presentationsPage", presentationsPage);  // Pass the page object to the model
+        model.addAttribute("currentPage", page); // Pass the current page to the view
+        model.addAttribute("totalPages", presentationsPage.getTotalPages()); // Pass the total pages
+        return "Admin/Presentations/AdminPresentations";  // Return the view
     }
 }
