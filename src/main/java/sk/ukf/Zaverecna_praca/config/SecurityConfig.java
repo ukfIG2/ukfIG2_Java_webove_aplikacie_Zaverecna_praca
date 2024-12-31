@@ -28,11 +28,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        /*.requestMatchers("/login", "/log-in").permitAll()
+                        .requestMatchers("/login", "/log-in").permitAll()
                         .requestMatchers("/register", "/register").permitAll()
-                        .requestMatchers("/api/**").permitAll() // Na konci vymaz
-                        .requestMatchers("/MVC/**").permitAll()*/
-                        .anyRequest().permitAll()//authenticated()
+                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/MVC/admin/**").hasRole("admin")
+                        .requestMatchers("/MVC/**").permitAll()
+
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")

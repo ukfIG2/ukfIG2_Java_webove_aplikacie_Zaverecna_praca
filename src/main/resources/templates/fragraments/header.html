@@ -66,8 +66,15 @@
                             <button type="submit" class="btn btn-danger">Odhlásenie</button>
                         </form>
                     </li>
+
+                    <!-- Tlačidlo Admin Panel, viditeľné iba pre administrátora -->
+                    <li class="nav-item" sec:authorize="hasRole('admin')">
+                        <a href="/MVC/admin/conferences" class="btn btn-warning">Admin Panel</a>
+                    </li>
+
                 </ul>
             </div>
         </div>
     </nav>
 </header>
+

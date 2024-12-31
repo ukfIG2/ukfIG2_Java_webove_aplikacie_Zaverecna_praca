@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -110,6 +111,13 @@ public class AuthController {
         // Redirect to login page after successful registration
         System.out.println("redirecting");
         return "redirect:/login?register";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handleException(Exception e) {
+        // Log the exception or handle as needed
+        e.printStackTrace();
+        return "redirect:/error";  // Redirect to custom error page
     }
 
 }

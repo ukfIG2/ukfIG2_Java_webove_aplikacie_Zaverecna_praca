@@ -31,10 +31,10 @@
   </div>
 
   <!-- Sekcia pódií -->
-  <h2 class="mt-5">Pódia</h2>
+  <h2 class="mt-5">Scéna</h2>
   <div th:each="stage : ${conferenceDetails.stages}">
     <input type="hidden" th:value="${stage.stageID}" id="stageId" />
-    <h3 th:text="'Pódium: ' + ${stage.nameOfStage}">Názov pódia</h3>
+    <h3 th:text="'Scéna: ' + ${stage.nameOfStage}">Názov pódia</h3>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
       <div class="col" th:each="presentation : ${stage.presentations}">
