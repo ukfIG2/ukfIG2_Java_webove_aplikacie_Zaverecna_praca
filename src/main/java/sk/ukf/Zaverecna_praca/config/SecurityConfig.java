@@ -27,10 +27,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                //.csrf().disable()
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/login", "/log-in").permitAll()
                         .requestMatchers("/register", "/register").permitAll()
-                        .requestMatchers("/api/**").permitAll()
+                        //.requestMatchers("/api/**").permitAll()
                         .requestMatchers("/MVC/admin/**").hasRole("admin")
                         .requestMatchers("/MVC/**").permitAll()
 
@@ -46,7 +47,6 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .exceptionHandling(exceptionHandling -> exceptionHandling
-                        // Set accessDeniedPage globally but avoid forcing a login redirect for permitAll paths
                         .accessDeniedPage("/error")
                 );
 
